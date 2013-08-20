@@ -12,7 +12,7 @@ private:
     QVector<double> border;
 
 public:
-    void LaunchEstimation(QVector<double> fvals);
+    virtual void LaunchEstimation(QVector<double> fvals)=0;
 };
 
 #endif // ERRORESTIMATION_H

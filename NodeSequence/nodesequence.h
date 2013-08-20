@@ -1,6 +1,9 @@
 #ifndef NODESEQUENCE_H
 #define NODESEQUENCE_H
 
+#include <QList>
+#include <QVector>
+
 class NodeSequence
 {
 public:
@@ -9,10 +12,11 @@ public:
 
 private:
     int dim;
-    int length;
+    int len;
+    QList<QVector<double> > seq;
 
 public:
-    void Generate();
+    virtual void Generate()=0;
 };
 
 #endif // NODESEQUENCE_H

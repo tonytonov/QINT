@@ -12,7 +12,7 @@ private:
     int dim;
 
 public:
-    double GetValue(QVector<double> x);
+    virtual double GetValue(QVector<double> x)=0;
 };
 
 #endif // TESTFUNCTION_H

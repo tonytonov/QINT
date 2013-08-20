@@ -4,6 +4,6 @@ IntegrationScenario::IntegrationScenario()
 {
 }
 
-IntegrationScenario::IntegrationScenario(NodeSequence s, TestFunction f) : seq(s), fun(f)
+IntegrationScenario::IntegrationScenario(NodeSequence *s, TestFunction *f) : seq(s), fun(f)
 {
 }

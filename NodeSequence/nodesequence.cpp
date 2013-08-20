@@ -4,7 +4,7 @@ NodeSequence::NodeSequence()
 {
 }
 
-NodeSequence::NodeSequence(int d, int l) : dim(d), length(l)
+NodeSequence::NodeSequence(int d, int l) : dim(d), len(l)
 {
     Generate();
 }

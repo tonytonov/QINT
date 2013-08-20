@@ -11,12 +11,12 @@ class IntegrationScenario
 {
 public:
     IntegrationScenario();
-    IntegrationScenario(NodeSequence s, TestFunction f);
+    IntegrationScenario(NodeSequence *s, TestFunction *f);
 
 private:
-    NodeSequence seq;
-    TestFunction fun;
-    ErrorEstimation err;
+    NodeSequence* seq;
+    TestFunction* fun;
+    ErrorEstimation* err;
     QVector<double> fvals;
 };
 
