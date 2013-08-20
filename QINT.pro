@@ -1,15 +1,16 @@
 ## build an app based on the one headers and two source files
 TEMPLATE = 		app
-HEADERS =		qintanalysis.h \
-    testfunction.h \
-    nodesequence.h \
-    integrationscenario.h \
-    errorestimation.h
-SOURCES = 		qintanalysis.cpp main.cpp \
-    testfunction.cpp \
-    nodesequence.cpp \
-    integrationscenario.cpp \
-    errorestimation.cpp
+
+SOURCES = qintanalysis.cpp \
+  integrationscenario.cpp \
+  main.cpp \
+	
+HEADERS = qintanalysis.h \
+  integrationscenario.h \
+
+include(NodeSequence/nodesequence.pri)
+include(TestFunction/testfunction.pri)
+include(ErrorEstimation/errorestimation.pri)
 
 ## beyond the default configuration, also use SVG graphics
 QT += 			svg

@@ -10,7 +10,6 @@ public:
 
 private:
     int dim;
-    int genzIndex;
 
 public:
     double GetValue(QVector<double> x);
