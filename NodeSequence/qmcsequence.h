@@ -6,7 +6,7 @@
 class QMCSequence : public NodeSequence
 {
 public:
-    QMCSequence();
+    QMCSequence(int d, int l);
 };
 
 #endif // QMCSEQUENCE_H

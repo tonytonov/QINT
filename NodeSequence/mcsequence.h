@@ -6,7 +6,7 @@
 class MCSequence : public NodeSequence
 {
 public:
-    MCSequence();
+    MCSequence(int d, int l);
 
 private:
     double seed;

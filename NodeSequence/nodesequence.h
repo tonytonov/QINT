@@ -7,7 +7,6 @@
 class NodeSequence
 {
 public:
-    NodeSequence();
     NodeSequence(int d, int l);
 
 private:
