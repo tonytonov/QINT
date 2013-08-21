@@ -1,5 +1,5 @@
 #include "testfunction.h"
 
-TestFunction::TestFunction()
+TestFunction::TestFunction(): dim(-1), label("Unknown function")
 {
 }

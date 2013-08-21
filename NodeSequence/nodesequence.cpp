@@ -6,10 +6,5 @@ NodeSequence::NodeSequence()
 
 NodeSequence::NodeSequence(int d, int l) : dim(d), len(l)
 {
-    Generate();
 }
 
-void NodeSequence::Generate()
-{
-
-}
