@@ -9,7 +9,7 @@ class NodeSequence
 public:
     NodeSequence(int d, int l);
 
-private:
+protected:
     int dim;
     int len;
     QList<QVector<double> > seq;
