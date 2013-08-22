@@ -16,6 +16,10 @@ protected:
 
 public:
     virtual void Generate()=0;
+    int getDim() const;
+    void setDim(int value);
+    int getLen() const;
+    void setLen(int value);
 };
 
 #endif // NODESEQUENCE_H

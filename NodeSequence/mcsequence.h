@@ -8,6 +8,9 @@ class MCSequence : public NodeSequence
 public:
     MCSequence(int d, int l);
 
+    double getSeed() const;
+    void setSeed(double value);
+
 private:
     double seed;
 };
