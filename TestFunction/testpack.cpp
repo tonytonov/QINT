@@ -10,7 +10,7 @@ using namespace std;
 double genz_function ( int indx, int ndim, double z[], double alpha[], 
   double beta[] );
 double genz_integral (int indx, int ndim, double alpha[], double beta[] );
-char *genz_name ( int indx );
+string genz_name(int index);
 double genz_phi ( double z );
 double genz_random ( int *seed );
 int i4_max ( int i1, int i2 );
@@ -384,63 +384,19 @@ double genz_integral ( int indx, int ndim, double alpha[], double beta[] )
 }
 //****************************************************************************80
 
-char *genz_name ( int indx )
+string genz_name (int index)
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    GENZ_NAME returns the name of a Genz test integrand.
-//
-//  Modified:
-//
-//    26 May 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int INDX, the index of the test integrand.
-//
-//    Output, char *GENZ_NAME, the name of the test integrand.
-//
 {
-  char *name;
-
-  name = new char[14];
-
-  if ( indx == 1 )
+  string name;
+  switch (index)
   {
-    strcpy ( name, "Oscillatory  " );
-  }
-  else if ( indx == 2 )
-  {
-    strcpy ( name, "Product Peak " );
-  }
-  else if ( indx == 3 )
-  {
-    strcpy ( name, "Corner Peak  " );
-  }
-  else if ( indx == 4 )
-  {
-    strcpy ( name, "Gaussian     " );
-  }
-  else if ( indx == 5 )
-  {
-    strcpy ( name, "C0 Function  " );
-  }
-  else if ( indx == 6 )
-  {
-    strcpy ( name, "Discontinuous" );
-  }
-  else
-  {
-    cout << "\n";
-    cout << "  GENZ_NAME - Fatal error!\n";
-    cout << "  1 <= INDX <= 6 is required.\n";
-    exit ( 1 );
+    case 1: name = "Oscillatory"; break;
+    case 2: name = "Product Peak"; break;
+    case 3: name = "Corner Peak"; break;
+    case 4: name = "Gaussian"; break;
+    case 5: name = "C0 function"; break;
+    case 6: name = "Discontinuous"; break;
+    default: name = "Unknown function"; break;
   }
   return name;
 }

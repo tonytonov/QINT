@@ -1,10 +1,15 @@
 #include "qintanalysis.h"
+#include "NodeSequence/sobolsequence.h"
+#include "TestFunction/genzfunction.h"
 #include <QtGui>
 
 QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
 {
     tempfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("tfile <- tempfile()")));
     svgfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("sfile <- tempfile()")));
+    SobolSequence *seq = new SobolSequence(10, 5);
+    GenzFunction *fun = new GenzFunction(1);
+    routine = IntegrationScenario(seq, fun);
     setupDisplay();
 }
 
