@@ -8,15 +8,19 @@ SobolSequence::SobolSequence(int d, int l) : QMCSequence(d,l)
     {
         s.reserve(d);
     }
+    Generate();
 }
 
 void SobolSequence::Generate()
 {
     for (int i=0; i<len; i++)
     {
+        QVector<double> svec;
+        seq.push_back(svec);
         for (int j=0; j<dim; j++)
         {
-            seq[i].push_back(sobol::sample(i,j));
+            double sval = sobol::sample(i,j);
+            seq[i].push_back(sval);
         }
     }
 }
