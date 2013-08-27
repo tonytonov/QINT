@@ -12,6 +12,7 @@ class IntegrationScenario
 public:
     IntegrationScenario();
     IntegrationScenario(NodeSequence *s, TestFunction *f);
+    void RunAnalysis();
 
 private:
     NodeSequence* seq;

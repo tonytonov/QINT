@@ -6,7 +6,7 @@
 class MCSequence : public NodeSequence
 {
 public:
-    MCSequence(int d, int l);
+    MCSequence(int dim, int len);
 
     double getSeed() const;
     void setSeed(double value);

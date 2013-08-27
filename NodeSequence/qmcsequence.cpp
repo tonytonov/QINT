@@ -1,5 +1,5 @@
 #include "qmcsequence.h"
 
-QMCSequence::QMCSequence(int d, int l) : NodeSequence(d,l)
+QMCSequence::QMCSequence(int dim, int len) : NodeSequence(dim, len)
 {
 }

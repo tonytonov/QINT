@@ -7,7 +7,7 @@ class SobolSequence : public QMCSequence
 {
 public:
     SobolSequence();
-    SobolSequence(int d, int l);
+    SobolSequence(int dim, int len);
 
 public:
     void Generate();

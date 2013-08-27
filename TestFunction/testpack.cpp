@@ -1,36 +1,8 @@
-# include <cstdlib>
-# include <iostream>
-# include <iomanip>
-# include <cmath>
-# include <ctime>
-# include <string.h>
-
-using namespace std;
-
-double genz_function ( int indx, int ndim, double z[], double alpha[], 
-  double beta[] );
-double genz_integral (int indx, int ndim, double alpha[], double beta[] );
-string genz_name(int index);
-double genz_phi ( double z );
-double genz_random ( int *seed );
-int i4_max ( int i1, int i2 );
-int i4_min ( int i1, int i2 );
-int i4_power ( int i, int j );
-int i4vec_sum ( int n, int a[] );
-double r8_abs ( double x );
-double r8_epsilon ( void );
-double r8_max ( double x, double y );
-double r8_min ( double x, double y );
-double r8vec_dot ( int n, double a1[], double a2[] );
-void r8vec_median ( int n, double r[], double rmed[3] );
-double r8vec_product ( int n, double a[] );
-double r8vec_sum ( int n, double a[] );
-void tuple_next ( int m1, int m2, int n, int *rank, int x[] );
+#include "testpack.h"
 
 //****************************************************************************80
 
-double genz_function ( int indx, int ndim, double z[], double alpha[], 
-  double beta[] )
+double genz_function (int indx, int ndim, double z[], double alpha[], double beta[])
 
 //****************************************************************************80
 //
@@ -384,10 +356,10 @@ double genz_integral ( int indx, int ndim, double alpha[], double beta[] )
 }
 //****************************************************************************80
 
-string genz_name (int index)
+std::string genz_name (int index)
 
 {
-  string name;
+  std::string name;
   switch (index)
   {
     case 1: name = "Oscillatory"; break;
@@ -703,9 +675,9 @@ int i4_power ( int i, int j )
     }
     else if ( i == 0 )
     {
-      cout << "\n";
-      cout << "I4_POWER - Fatal error!\n";
-      cout << "  I^J requested, with I = 0 and J negative.\n";
+      std::cout << "\n";
+      std::cout << "I4_POWER - Fatal error!\n";
+      std::cout << "  I^J requested, with I = 0 and J negative.\n";
       exit ( 1 );
     }
     else
@@ -717,9 +689,9 @@ int i4_power ( int i, int j )
   {
     if ( i == 0 )
     {
-      cout << "\n";
-      cout << "I4_POWER - Fatal error!\n";
-      cout << "  I^J requested, with I = 0 and J = 0.\n";
+      std::cout << "\n";
+      std::cout << "I4_POWER - Fatal error!\n";
+      std::cout << "  I^J requested, with I = 0 and J = 0.\n";
       exit ( 1 );
     }
     else

@@ -8,14 +8,19 @@ class TestFunction
 {
 public:
     TestFunction();
+    TestFunction(int dim);
 
-private:
+protected:
     int dim;
     QString label;
 
 public:
     virtual double GetValue(QVector<double> x)=0;
     virtual double GetExactValue()=0;
+    int getDim() const;
+    void setDim(int value);
+    QString getLabel() const;
+    void setLabel(const QString &value);
 };
 
 #endif // TESTFUNCTION_H

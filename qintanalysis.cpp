@@ -8,8 +8,9 @@ QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
     tempfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("tfile <- tempfile()")));
     svgfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("sfile <- tempfile()")));
     SobolSequence *seq = new SobolSequence(10, 5);
-    GenzFunction *fun = new GenzFunction(1);
+    GenzFunction *fun = new GenzFunction(1, 10);
     routine = IntegrationScenario(seq, fun);
+    routine.RunAnalysis();
     setupDisplay();
 }
 

@@ -3,4 +3,5 @@ SOURCES += TestFunction/testfunction.cpp \
     TestFunction/genzfunction.cpp
 
 HEADERS += TestFunction/testfunction.h \
-    TestFunction/genzfunction.h
+    TestFunction/genzfunction.h \
+    TestFunction/testpack.h

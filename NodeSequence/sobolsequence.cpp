@@ -1,12 +1,12 @@
 #include "sobolsequence.h"
 #include "sobol.h"
 
-SobolSequence::SobolSequence(int d, int l) : QMCSequence(d,l)
+SobolSequence::SobolSequence(int dim, int len) : QMCSequence(dim, len)
 {
-    seq.reserve(l);
+    seq.reserve(len);
     foreach (QVector<double> s, seq)
     {
-        s.reserve(d);
+        s.reserve(dim);
     }
     Generate();
 }

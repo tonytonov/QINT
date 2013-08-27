@@ -7,7 +7,7 @@
 class NodeSequence
 {
 public:
-    NodeSequence(int d, int l);
+    NodeSequence(int dim, int len);
 
 protected:
     int dim;
@@ -20,6 +20,8 @@ public:
     void setDim(int value);
     int getLen() const;
     void setLen(int value);
+    QList<QVector<double> > getSeq() const;
+    void setSeq(const QList<QVector<double> > &value);
 };
 
 #endif // NODESEQUENCE_H

@@ -7,14 +7,10 @@
 class GenzFunction : public TestFunction
 {
 public:
-    GenzFunction(int index);
+    GenzFunction(int index, int dim);
 
-    QString getDescription() const;
-    void setDescription(const QString &value);
-
-private:
+protected:
     int genzIndex;
-    QString description;
 
 public:
     double GetValue(QVector<double> x);
