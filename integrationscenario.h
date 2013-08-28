@@ -19,6 +19,7 @@ private:
     TestFunction* fun;
     ErrorEstimation* err;
     QVector<double> fvals;
+    double exact;
 };
 
 #endif // INTEGRATIONSCENARIO_H

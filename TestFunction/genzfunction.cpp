@@ -6,14 +6,18 @@ GenzFunction::GenzFunction(int index, int dim): TestFunction(dim), genzIndex(ind
     label = QString::fromStdString(genz_name(index));
 }
 
+GenzFunction::GenzFunction(int index, int dim, double *alpha, double *beta):
+    TestFunction(dim), genzIndex(index), alpha(alpha), beta(beta)
+{
+    label = QString::fromStdString(genz_name(index));
+}
+
 double GenzFunction::GetValue(QVector<double> x)
 {
-    double alpha[1] = {0};
-    double beta[1] = {1};
     return genz_function(genzIndex, dim, x.data(), alpha, beta);
 }
 
 double GenzFunction::GetExactValue()
 {
-    return 0;
+    return genz_integral(genzIndex, dim, alpha, beta);
 }
