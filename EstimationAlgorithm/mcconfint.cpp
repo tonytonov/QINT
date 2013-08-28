@@ -1,12 +1,12 @@
-#include "mcmeanconfint.h"
+#include "mcconfint.h"
 
-MCMeanConfint::MCMeanConfint()
+MCConfint::MCConfint()
 {
     level = 0.95;
     multiplier = 1.64;
 }
 
-void MCMeanConfint::BuildBorder(QVector<double> fvals)
+void MCConfint::BuildBorder(QVector<double> fvals)
 {
     // classical MC confidence interval
     border.clear();

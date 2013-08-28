@@ -1,9 +1,11 @@
 SOURCES += \
     EstimationAlgorithm/estimationalgorithm.cpp \
-    EstimationAlgorithm/mcmeanconfint.cpp \
-    EstimationAlgorithm/meanestimation.cpp
+    EstimationAlgorithm/meanestimation.cpp \
+    EstimationAlgorithm/qmcqconfint.cpp \
+    EstimationAlgorithm/mcconfint.cpp
 
 HEADERS += \
     EstimationAlgorithm/estimationalgorithm.h \
-    EstimationAlgorithm/mcmeanconfint.h \
-    EstimationAlgorithm/meanestimation.h
+    EstimationAlgorithm/meanestimation.h \
+    EstimationAlgorithm/qmcqconfint.h \
+    EstimationAlgorithm/mcconfint.h

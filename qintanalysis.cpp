@@ -1,7 +1,7 @@
 #include "qintanalysis.h"
 #include "NodeSequence/sobolsequence.h"
 #include "TestFunction/genzfunction.h"
-#include "EstimationAlgorithm/mcmeanconfint.h"
+#include "EstimationAlgorithm/mcconfint.h"
 #include <QtGui>
 
 QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
@@ -10,7 +10,7 @@ QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
     svgfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("sfile <- tempfile()")));
     SobolSequence *seq = new SobolSequence(10, 5);
     GenzFunction *fun = new GenzFunction(1, 10, new double{0}, new double{1});
-    EstimationAlgorithm *est = new MCMeanConfint();
+    EstimationAlgorithm *est = new MCConfint();
     routine = IntegrationScenario(seq, fun, est);
     routine.RunAnalysis();
     setupDisplay();

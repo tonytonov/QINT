@@ -1,12 +1,12 @@
-#ifndef MCMEANCONFINT_H
-#define MCMEANCONFINT_H
+#ifndef MCCONFINT_H
+#define MCCONFINT_H
 
 #include <EstimationAlgorithm/meanestimation.h>
 
-class MCMeanConfint : public MeanEstimation
+class MCConfint : public MeanEstimation
 {
 public:
-    MCMeanConfint();
+    MCConfint();
 
 private:
     double level;
@@ -17,4 +17,4 @@ public:
     void BuildBorder(QVector<double> fvals);
 };
 
-#endif // MCMEANCONFINT_H
+#endif // MCCONFINT_H
