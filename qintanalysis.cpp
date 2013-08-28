@@ -2,23 +2,27 @@
 #include "NodeSequence/sobolsequence.h"
 #include "TestFunction/genzfunction.h"
 #include "EstimationAlgorithm/mcconfint.h"
+#include "intguiparams.h"
 #include <QtGui>
 
 QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
 {
     tempfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("tfile <- tempfile()")));
     svgfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("sfile <- tempfile()")));
-    SobolSequence *seq = new SobolSequence(10, 5);
-    GenzFunction *fun = new GenzFunction(1, 10, new double{0}, new double{1});
-    EstimationAlgorithm *est = new MCConfint();
-    routine = IntegrationScenario(seq, fun, est);
-    routine.RunAnalysis();
+
+    params = new IntGuiParams();
+    params->setFunctionIndex(0);
+    params->setFunctionDim(5);
+    params->setRuleIndex(0);
+    params->setSeqLength(100);
+
     setupDisplay();
 }
 
 
 QIntAnalysis::~QIntAnalysis()
 {
+    delete params;
     QFile outfile(svgfile);
     outfile.remove();
 }
@@ -28,9 +32,53 @@ void QIntAnalysis::setupDisplay()
     QWidget *window = new QWidget;
     window->setWindowTitle("QINT: numerical integration with error control");
 
-    QGroupBox *testFunctionBox = new QGroupBox("Test function");
+    QComboBox *testFunctionPick = new QComboBox;
+    testFunctionPick->addItem("foo1");
+    testFunctionPick->addItem("foo2");
+    testFunctionPick->addItem("foo3");
+    testFunctionPick->setCurrentIndex(params->getFunctionIndex());
+    QObject::connect(testFunctionPick, SIGNAL(activated(int)), this->params, SLOT(setFunctionIndex(int)));
 
+    QValidator *dimValidator = new QIntValidator(1, 10);
+    QLineEdit *dimEdit = new QLineEdit;
+    dimEdit->setValidator(dimValidator);
+    dimEdit->setText(QString::number(params->getFunctionDim()));
+    QObject::connect(dimEdit, SIGNAL(textEdited(QString)), this->params, SLOT(setFunctionDim(QString)));
+
+    QVBoxLayout *topleft = new QVBoxLayout;
+    topleft->addWidget(testFunctionPick);
+    topleft->addWidget(dimEdit);
+    QGroupBox *testFunctionBox = new QGroupBox("Test function");
+    testFunctionBox->setMinimumSize(360,140);
+    testFunctionBox->setMaximumSize(360,140);
+    testFunctionBox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    testFunctionBox->setLayout(topleft);
+
+    QComboBox *intRulePick = new QComboBox;
+    intRulePick->addItem("bar1");
+    intRulePick->addItem("bar2");
+    intRulePick->addItem("bar3");
+    intRulePick->setCurrentIndex(params->getRuleIndex());
+    QObject::connect(intRulePick, SIGNAL(activated(int)), this->params, SLOT(setRuleIndex(int)));
+
+    QValidator *lenValidator = new QIntValidator(1, 100);
+    QLineEdit *lenEdit = new QLineEdit;
+    lenEdit->setValidator(lenValidator);
+    lenEdit->setText(QString::number(params->getSeqLength()));
+    QObject::connect(lenEdit, SIGNAL(textEdited(QString)), this->params, SLOT(setSeqLength(QString)));
+
+    QPushButton *startButton = new QPushButton("Launch");
+    QObject::connect(startButton, SIGNAL(released()), this, SLOT(configure()));
+
+    QVBoxLayout *topright = new QVBoxLayout;
+    topright->addWidget(intRulePick);
+    topright->addWidget(lenEdit);
+    topright->addWidget(startButton);
     QGroupBox *integrationRuleBox = new QGroupBox("Integration rule and parameters");
+    integrationRuleBox->setMinimumSize(360,140);
+    integrationRuleBox->setMaximumSize(360,140);
+    integrationRuleBox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    integrationRuleBox->setLayout(topright);
 
     QHBoxLayout *upperlayout = new QHBoxLayout;
     upperlayout->addWidget(testFunctionBox);
@@ -39,7 +87,6 @@ void QIntAnalysis::setupDisplay()
     QHBoxLayout *lowerlayout = new QHBoxLayout;
     svg = new QSvgWidget();
     plot();
-
     lowerlayout->addWidget(svg);
 
     QVBoxLayout *outer = new QVBoxLayout;
@@ -58,6 +105,33 @@ void QIntAnalysis::plot()
     instR.parseEvalQ(cmd);
     filterFile();
     svg->load(svgfile);
+}
+
+void QIntAnalysis::configure()
+{
+    NodeSequence *seq;
+    switch (params->getRuleIndex()) {
+    case 0:
+        seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
+        break;
+    case 1:
+        //TODO: implement mc sequence
+        //seq = new monte-carlo sequence
+    default:
+        break;
+    }
+
+    TestFunction *fun;
+    double *alpha = new double{0};
+    double *beta = new double{1};
+    fun = new GenzFunction(params->getFunctionIndex() + 1, params->getFunctionDim(), alpha, beta);
+
+    EstimationAlgorithm *est;
+    est = new MCConfint();
+
+    routine = IntegrationScenario(seq, fun, est);
+    routine.RunAnalysis();
+
 }
 
 void QIntAnalysis::filterFile() {
@@ -81,4 +155,3 @@ void QIntAnalysis::filterFile() {
     infile.remove();
     outfile.close();
 }
-
