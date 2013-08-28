@@ -17,7 +17,8 @@ QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
 
 QIntAnalysis::~QIntAnalysis()
 {
-    
+    QFile outfile(svgfile);
+    outfile.remove();
 }
 
 void QIntAnalysis::setupDisplay()
@@ -75,6 +76,7 @@ void QIntAnalysis::filterFile() {
         out << line << "\n";
     }
     infile.close();
+    infile.remove();
     outfile.close();
 }
 
