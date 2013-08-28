@@ -8,11 +8,13 @@ class EstimationAlgorithm
 public:
     EstimationAlgorithm();
 
-private:
+protected:
+    QVector<double> estimate;
     QVector<double> border;
 
 public:
-    virtual void LaunchEstimation(QVector<double> fvals)=0;
+    virtual void BuildEstimate(QVector<double> fvals)=0;
+    virtual void BuildBorder(QVector<double> fvals)=0;
 };
 
 #endif // ESTIMATIONALGORITHM_H

@@ -5,19 +5,19 @@
 
 #include <NodeSequence/nodesequence.h>
 #include <TestFunction/testfunction.h>
-#include <ErrorEstimation/errorestimation.h>
+#include <EstimationAlgorithm/estimationalgorithm.h>
 
 class IntegrationScenario
 {
 public:
     IntegrationScenario();
-    IntegrationScenario(NodeSequence *s, TestFunction *f);
+    IntegrationScenario(NodeSequence *seq, TestFunction *fun, EstimationAlgorithm *est);
     void RunAnalysis();
 
 private:
     NodeSequence* seq;
     TestFunction* fun;
-    ErrorEstimation* err;
+    EstimationAlgorithm* est;
     QVector<double> fvals;
     double exact;
 };
