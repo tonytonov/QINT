@@ -2,7 +2,9 @@
 
 MCSequence::MCSequence(int dim, int len) : NodeSequence(dim, len)
 {
+
 }
+
 double MCSequence::getSeed() const
 {
     return seed;

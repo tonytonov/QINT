@@ -2,6 +2,7 @@
 
 TestFunction::TestFunction(): dim(-1), label("Unknown function")
 {
+
 }
 
 TestFunction::TestFunction(int dim): dim(dim)

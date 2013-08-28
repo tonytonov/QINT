@@ -10,7 +10,7 @@ HEADERS = qintanalysis.h \
 
 include(NodeSequence/nodesequence.pri)
 include(TestFunction/testfunction.pri)
-include(ErrorEstimation/errorestimation.pri)
+include(EstimationAlgorithm/estimationalgorithm.pri)
 
 ## beyond the default configuration, also use SVG graphics
 QT += 			svg

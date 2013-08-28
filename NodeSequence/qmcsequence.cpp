@@ -2,4 +2,5 @@
 
 QMCSequence::QMCSequence(int dim, int len) : NodeSequence(dim, len)
 {
+
 }

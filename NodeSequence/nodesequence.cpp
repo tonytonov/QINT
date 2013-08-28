@@ -2,7 +2,9 @@
 
 NodeSequence::NodeSequence(int dim, int len) : dim(dim), len(len)
 {
+
 }
+
 QList<QVector<double> > NodeSequence::getSeq() const
 {
     return seq;
