@@ -7,6 +7,8 @@ class EstimationAlgorithm
 {
 public:
     EstimationAlgorithm();
+    EstimationAlgorithm(const EstimationAlgorithm& e);
+    virtual EstimationAlgorithm* clone() const = 0;
 
 protected:
     QVector<double> estimate;

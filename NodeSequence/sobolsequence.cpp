@@ -11,6 +11,17 @@ SobolSequence::SobolSequence(int dim, int len) : QMCSequence(dim, len)
     Generate();
 }
 
+SobolSequence::SobolSequence(const SobolSequence &s) :
+    QMCSequence(s)
+{
+
+}
+
+SobolSequence *SobolSequence::clone() const
+{
+    return new SobolSequence(*this);
+}
+
 void SobolSequence::Generate()
 {
     for (int i=0; i<len; i++)

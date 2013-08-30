@@ -7,8 +7,9 @@
 class TestFunction
 {
 public:
-    TestFunction();
     TestFunction(int dim);
+    TestFunction(const TestFunction& t);
+    virtual TestFunction* clone() const = 0;
 
 protected:
     int dim;

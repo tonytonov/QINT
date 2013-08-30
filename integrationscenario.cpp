@@ -5,10 +5,17 @@ IntegrationScenario::IntegrationScenario()
 
 }
 
-IntegrationScenario::IntegrationScenario(NodeSequence *seq, TestFunction *fun, EstimationAlgorithm *est) :
-    seq(seq), fun(fun), est(est)
+IntegrationScenario::IntegrationScenario(const IntegrationScenario &i) :
+    seq(i.seq->clone()), fun(i.fun->clone()), alg(i.alg->clone())
 {
 
+}
+
+IntegrationScenario::~IntegrationScenario()
+{
+    delete seq;
+    delete fun;
+    delete alg;
 }
 
 void IntegrationScenario::RunAnalysis()
@@ -23,7 +30,37 @@ void IntegrationScenario::RunAnalysis()
     exact = fun->GetExactValue();
 
     // passing these values to an error estimation algorithm
-    est->BuildEstimate(fvals);
-    est->BuildBorder(fvals);
+    alg->BuildEstimate(fvals);
+    alg->BuildBorder(fvals);
 
+}
+
+NodeSequence *IntegrationScenario::getSeq() const
+{
+    return seq;
+}
+
+void IntegrationScenario::setSeq(NodeSequence *const value)
+{
+    seq = value;
+}
+
+TestFunction *IntegrationScenario::getFun() const
+{
+    return fun;
+}
+
+void IntegrationScenario::setFun(TestFunction *const value)
+{
+    fun = value;
+}
+
+EstimationAlgorithm *IntegrationScenario::getAlg() const
+{
+    return alg;
+}
+
+void IntegrationScenario::setAlg(EstimationAlgorithm *const value)
+{
+    alg = value;
 }

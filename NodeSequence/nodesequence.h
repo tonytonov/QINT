@@ -8,6 +8,8 @@ class NodeSequence
 {
 public:
     NodeSequence(int dim, int len);
+    NodeSequence(const NodeSequence& s);
+    virtual NodeSequence* clone() const = 0;
 
 protected:
     int dim;

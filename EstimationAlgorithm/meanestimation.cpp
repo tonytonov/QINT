@@ -5,6 +5,12 @@ MeanEstimation::MeanEstimation()
 
 }
 
+MeanEstimation::MeanEstimation(const MeanEstimation &m) :
+    EstimationAlgorithm(m)
+{
+
+}
+
 void MeanEstimation::BuildEstimate(QVector<double> fvals)
 {
     // integral is estimated as a cumulative average

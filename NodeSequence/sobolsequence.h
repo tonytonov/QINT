@@ -6,11 +6,12 @@
 class SobolSequence : public QMCSequence
 {
 public:
-    SobolSequence();
     SobolSequence(int dim, int len);
+    SobolSequence(const SobolSequence& s);
+    virtual SobolSequence* clone() const;
 
 public:
-    void Generate();
+    virtual void Generate();
 };
 
 #endif // SOBOLSEQUENCE_H

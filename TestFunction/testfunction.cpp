@@ -1,11 +1,12 @@
 #include "testfunction.h"
 
-TestFunction::TestFunction(): dim(-1), label("Unknown function")
+TestFunction::TestFunction(int dim): dim(dim)
 {
 
 }
 
-TestFunction::TestFunction(int dim): dim(dim)
+TestFunction::TestFunction(const TestFunction &t) :
+    dim(t.dim), label(t.label)
 {
 
 }

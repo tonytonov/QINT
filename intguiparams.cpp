@@ -45,12 +45,12 @@ int IntGuiParams::getSeqLength() const
     return seqLength;
 }
 
-void IntGuiParams::setFunctionDim(QString str)
+void IntGuiParams::setFunctionDim(const QString str)
 {
     functionDim = str.toInt();
 }
 
-void IntGuiParams::setSeqLength(QString str)
+void IntGuiParams::setSeqLength(const QString str)
 {
     seqLength = str.toInt();
 }

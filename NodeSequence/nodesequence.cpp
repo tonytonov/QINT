@@ -5,6 +5,12 @@ NodeSequence::NodeSequence(int dim, int len) : dim(dim), len(len)
 
 }
 
+NodeSequence::NodeSequence(const NodeSequence &s) :
+    dim(s.dim), len(s.len), seq(s.seq)
+{
+
+}
+
 QList<QVector<double> > NodeSequence::getSeq() const
 {
     return seq;

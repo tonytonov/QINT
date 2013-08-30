@@ -5,7 +5,7 @@
 #include "intguiparams.h"
 #include <QtGui>
 
-QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
+QIntAnalysis::QIntAnalysis(RInside &R) : instR(R)
 {
     tempfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("tfile <- tempfile()")));
     svgfile = QString::fromStdString(Rcpp::as<std::string>(instR.parseEval("sfile <- tempfile()")));
@@ -19,10 +19,10 @@ QIntAnalysis::QIntAnalysis(RInside & R) : instR(R)
     setupDisplay();
 }
 
-
 QIntAnalysis::~QIntAnalysis()
 {
     delete params;
+    delete svg;
     QFile outfile(svgfile);
     outfile.remove();
 }
@@ -110,7 +110,8 @@ void QIntAnalysis::plot()
 void QIntAnalysis::configure()
 {
     NodeSequence *seq;
-    switch (params->getRuleIndex()) {
+    switch (params->getRuleIndex())
+    {
     case 0:
         seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
         break;
@@ -122,19 +123,19 @@ void QIntAnalysis::configure()
     }
 
     TestFunction *fun;
-    double *alpha = new double{0};
-    double *beta = new double{1};
-    fun = new GenzFunction(params->getFunctionIndex() + 1, params->getFunctionDim(), alpha, beta);
+    fun = new GenzFunction(params->getFunctionIndex() + 1, params->getFunctionDim());
 
-    EstimationAlgorithm *est;
-    est = new MCConfint();
+    EstimationAlgorithm *alg;
+    alg = new MCConfint(0.95, 1.64);
 
-    routine = IntegrationScenario(seq, fun, est);
+    routine.setSeq(seq);
+    routine.setFun(fun);
+    routine.setAlg(alg);
     routine.RunAnalysis();
-
 }
 
-void QIntAnalysis::filterFile() {
+void QIntAnalysis::filterFile()
+{
     // cairoDevice creates richer SVG than Qt can display
     QFile infile(tempfile);
     infile.open(QFile::ReadOnly);

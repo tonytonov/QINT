@@ -8,16 +8,20 @@ class GenzFunction : public TestFunction
 {
 public:
     GenzFunction(int index, int dim);
-    GenzFunction(int index, int dim, double* alpha, double* beta);
+    GenzFunction(const GenzFunction& g);
+    virtual GenzFunction* clone() const;
 
 protected:
     int genzIndex;
-    double* alpha;
-    double* beta;
+    QVector<double> alpha;
+    QVector<double> beta;
+
+private:
+    void fillGenzParams();
 
 public:
-    double GetValue(QVector<double> x);
-    double GetExactValue();
+    double virtual GetValue(QVector<double> x);
+    double virtual GetExactValue();
 };
 
 #endif // GENZFUNCTION_H

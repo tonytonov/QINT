@@ -19,11 +19,11 @@ class QIntAnalysis : public QMainWindow
     Q_OBJECT
     
 public:
-    QIntAnalysis(RInside & R);
+    QIntAnalysis(RInside &R);
     ~QIntAnalysis();
 
 private:
-    void setupDisplay(void);
+    void setupDisplay();
     void filterFile();
     void plot(void);
 
@@ -31,12 +31,12 @@ private slots:
     void configure(void);
 
 private:
-    RInside & instR;          // reference to the R instance passed to constructor
-    QSvgWidget *svg;          // the SVG device
-    QString tempfile;         // temporary file for initial R plot
-    QString svgfile;          // temporary file for resulting R plot
-    IntegrationScenario routine;
-    IntGuiParams *params;
+    RInside &instR;              // reference to the R instance passed to constructor
+    QSvgWidget *svg;              // SVG device
+    QString tempfile;             // temporary file for initial R plot
+    QString svgfile;              // temporary file for resulting R plot
+    IntegrationScenario routine;  // contains test function, node sequence and estimation algorithm
+    IntGuiParams *params;         // params from GUI forms
 };
 
 #endif // QINTANALYSIS_H

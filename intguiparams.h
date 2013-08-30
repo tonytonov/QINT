@@ -26,8 +26,8 @@ public slots:
     void setFunctionDim(int);
     void setRuleIndex(int);
     void setSeqLength(int);
-    void setFunctionDim(QString);
-    void setSeqLength(QString);
+    void setFunctionDim(QString const);
+    void setSeqLength(QString const);
 
 };
 

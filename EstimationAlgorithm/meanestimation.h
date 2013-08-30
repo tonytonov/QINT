@@ -7,9 +7,8 @@ class MeanEstimation : public EstimationAlgorithm
 {
 public:
     MeanEstimation();
-
-public:
-    void BuildEstimate(QVector<double> fvals);
+    MeanEstimation(const MeanEstimation& m);
+    virtual void BuildEstimate(QVector<double> fvals);
 };
 
 #endif // MEANESTIMATION_H

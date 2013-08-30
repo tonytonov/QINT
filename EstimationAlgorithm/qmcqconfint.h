@@ -5,8 +5,11 @@
 
 class QMCQConfint : public MeanEstimation
 {
+    QMCQConfint(const QMCQConfint& q);
+    QMCQConfint* clone() const;
+
 public:
-    QMCQConfint();
+    virtual void BuildBorder(QVector<double> fvals);
 };
 
 #endif // QMCQCONFINT_H
