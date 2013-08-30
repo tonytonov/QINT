@@ -86,7 +86,9 @@ void QIntAnalysis::setupDisplay()
 
     QHBoxLayout *lowerlayout = new QHBoxLayout;
     svg = new QSvgWidget();
-    plot();
+    svg->setMinimumSize(720, 576);
+    svg->setMaximumSize(720, 576);
+    svg->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     lowerlayout->addWidget(svg);
 
     QVBoxLayout *outer = new QVBoxLayout;
@@ -98,8 +100,10 @@ void QIntAnalysis::setupDisplay()
 
 void QIntAnalysis::plot()
 {
+    std::vector<double> pts = routine.getFvals().toStdVector();
+    instR["pts"] = pts;
     std::string cmd0 = "require(ggplot2);";
-    std::string cmd1 = "image <- qplot(1:50);";
+    std::string cmd1 = "image <- qplot(pts);";
     std::string cmd2 = "ggsave(file=tfile, plot=image, device=svg, width=10, height=8)";
     std::string cmd = cmd0 + cmd1 + cmd2;
     instR.parseEvalQ(cmd);
@@ -132,6 +136,7 @@ void QIntAnalysis::configure()
     routine.setFun(fun);
     routine.setAlg(alg);
     routine.RunAnalysis();
+    plot();
 }
 
 void QIntAnalysis::filterFile()

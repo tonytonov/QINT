@@ -29,6 +29,8 @@ public:
     void setFun(TestFunction *const value);
     EstimationAlgorithm* getAlg() const;
     void setAlg(EstimationAlgorithm *const value);
+    QVector<double> getFvals() const;
+    void setFvals(QVector<double> const value);
 };
 
 #endif // INTEGRATIONSCENARIO_H

@@ -64,3 +64,13 @@ void IntegrationScenario::setAlg(EstimationAlgorithm *const value)
 {
     alg = value;
 }
+
+QVector<double> IntegrationScenario::getFvals() const
+{
+    return fvals;
+}
+
+void IntegrationScenario::setFvals(const QVector<double> value)
+{
+    fvals = value;
+}
