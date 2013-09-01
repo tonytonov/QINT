@@ -6,13 +6,13 @@
 class MCSequence : public NodeSequence
 {
 public:
-    MCSequence(int dim, int len);
+    MCSequence(int dim, int len, double seed);
     MCSequence(const MCSequence& s);
 
     double getSeed() const;
     void setSeed(double value);
 
-private:
+protected:
     double seed;
 };
 

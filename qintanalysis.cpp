@@ -1,5 +1,6 @@
 #include "qintanalysis.h"
 #include "NodeSequence/sobolsequence.h"
+#include "NodeSequence/mcuniformsequence.h"
 #include "TestFunction/genzfunction.h"
 #include "EstimationAlgorithm/mcconfint.h"
 #include "intguiparams.h"
@@ -120,8 +121,7 @@ void QIntAnalysis::configure()
         seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
         break;
     case 1:
-        //TODO: implement mc sequence
-        //seq = new monte-carlo sequence
+        seq = new MCUniformSequence(params->getFunctionDim(), params->getSeqLength(), 1, instR);
     default:
         break;
     }

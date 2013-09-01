@@ -1,6 +1,7 @@
 #include "mcsequence.h"
 
-MCSequence::MCSequence(int dim, int len) : NodeSequence(dim, len)
+MCSequence::MCSequence(int dim, int len, double seed) :
+    NodeSequence(dim, len), seed(seed)
 {
 
 }
