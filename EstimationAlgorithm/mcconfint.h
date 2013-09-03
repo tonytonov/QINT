@@ -13,7 +13,6 @@ public:
 private:
     double level;
     double multiplier;
-    QVector<double> stddev;
 
 public:
     virtual void BuildBorder(QVector<double> fvals);

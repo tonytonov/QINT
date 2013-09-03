@@ -2,6 +2,7 @@
 #define ESTIMATIONALGORITHM_H
 
 #include <QVector>
+#include <QMap>
 
 class EstimationAlgorithm
 {
@@ -12,10 +13,11 @@ public:
 
 protected:
     QVector<double> estimate;
-    QVector<double> border;
+    QMap<int, double> border;
 
 public:
     virtual void BuildEstimate(QVector<double> fvals)=0;
+    //TODO: call by const reference
     virtual void BuildBorder(QVector<double> fvals)=0;
 };
 
