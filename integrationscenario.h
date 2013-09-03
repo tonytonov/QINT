@@ -31,6 +31,8 @@ public:
     void setAlg(EstimationAlgorithm *const value);
     QVector<double> getFvals() const;
     void setFvals(QVector<double> const value);
+    double getExact() const;
+    void setExact(double const value);
 };
 
 #endif // INTEGRATIONSCENARIO_H

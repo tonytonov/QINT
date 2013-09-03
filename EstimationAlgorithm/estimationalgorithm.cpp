@@ -11,3 +11,23 @@ EstimationAlgorithm::EstimationAlgorithm(const EstimationAlgorithm &e) :
 
 }
 
+QVector<double> EstimationAlgorithm::getEstimate() const
+{
+    return estimate;
+}
+
+void EstimationAlgorithm::setEstimate(const QVector<double> &value)
+{
+    estimate = value;
+}
+
+QMap<int, double> EstimationAlgorithm::getBorder() const
+{
+    return border;
+}
+
+void EstimationAlgorithm::setBorder(const QMap<int, double> &value)
+{
+    border = value;
+}
+

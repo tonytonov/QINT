@@ -101,10 +101,15 @@ void QIntAnalysis::setupDisplay()
 
 void QIntAnalysis::plot()
 {
-    std::vector<double> pts = routine.getFvals().toStdVector();
-    instR["pts"] = pts;
+    std::vector<double> estimate = routine.getAlg()->getEstimate().toStdVector();
+    std::vector<int> borderIndices = routine.getAlg()->getBorder().keys().toVector().toStdVector();
+    std::vector<double> borderValues = routine.getAlg()->getBorder().values().toVector().toStdVector();
+    instR["estimate"] = estimate;
+    instR["exact"] = routine.getExact();
+    instR["borderIndices"] = borderIndices;
+    instR["borderValues"] = borderValues;
     std::string cmd0 = "require(ggplot2);";
-    std::string cmd1 = "image <- qplot(pts);";
+    std::string cmd1 = "image <- qplot(estimate - exact);";
     std::string cmd2 = "ggsave(file=tfile, plot=image, device=svg, width=10, height=8)";
     std::string cmd = cmd0 + cmd1 + cmd2;
     instR.parseEvalQ(cmd);

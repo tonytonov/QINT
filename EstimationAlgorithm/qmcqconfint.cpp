@@ -13,5 +13,5 @@ QMCQConfint *QMCQConfint::clone() const
 
 void QMCQConfint::BuildBorder(QVector<double> fvals)
 {
-
+    //TODO : qconfint core
 }

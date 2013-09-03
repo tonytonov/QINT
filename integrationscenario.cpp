@@ -29,7 +29,7 @@ void IntegrationScenario::RunAnalysis()
     }
     exact = fun->GetExactValue();
 
-    // passing these values to an error estimation algorithm
+    // passing these values to estimation algorithm
     alg->BuildEstimate(fvals);
     alg->BuildBorder(fvals);
 
@@ -73,4 +73,14 @@ QVector<double> IntegrationScenario::getFvals() const
 void IntegrationScenario::setFvals(const QVector<double> value)
 {
     fvals = value;
+}
+
+double IntegrationScenario::getExact() const
+{
+    return exact;
+}
+
+void IntegrationScenario::setExact(const double value)
+{
+    exact = value;
 }
