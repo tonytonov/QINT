@@ -13,14 +13,6 @@ GenzFunction::GenzFunction(const GenzFunction &g) :
 
 }
 
-//GenzFunction::GenzFunction(const GenzFunction &gf)
-//{
-//    this->genzIndex = gf.genzIndex;
-//    this->label = gf.label;
-//    this->alpha = gf.alpha;
-//    this->beta = gf.beta;
-//}
-
 GenzFunction *GenzFunction::clone() const
 {
     return new GenzFunction(*this);
@@ -42,30 +34,9 @@ void GenzFunction::fillGenzParams()
     beta.clear();
     alpha.reserve(dim);
     beta.reserve(dim);
-    switch (genzIndex) {
-    case 1:
-        for (int i=0; i<dim; i++)
-        {
-            alpha.push_back(0);
-            beta.push_back(1);
-        }
-        break;
-    case 2:
-        //TODO
-        break;
-    case 3:
-        //TODO
-        break;
-    case 4:
-        //TODO
-        break;
-    case 5:
-        //TODO
-        break;
-    case 6:
-        //TODO
-        break;
-    default:
-        break;
-   }
+    for (int i=0; i<dim; i++)
+    {
+        alpha.push_back(1);
+        beta.push_back(1);
+    }
 }

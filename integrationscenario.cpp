@@ -2,7 +2,9 @@
 
 IntegrationScenario::IntegrationScenario()
 {
-
+    seq = NULL;
+    fun = NULL;
+    alg = NULL;
 }
 
 IntegrationScenario::IntegrationScenario(const IntegrationScenario &i) :
@@ -32,7 +34,6 @@ void IntegrationScenario::RunAnalysis()
     // passing these values to estimation algorithm
     alg->BuildEstimate(fvals);
     alg->BuildBorder(fvals);
-
 }
 
 NodeSequence *IntegrationScenario::getSeq() const
@@ -42,6 +43,10 @@ NodeSequence *IntegrationScenario::getSeq() const
 
 void IntegrationScenario::setSeq(NodeSequence *const value)
 {
+    if (seq != NULL)
+    {
+        delete seq;
+    }
     seq = value;
 }
 
@@ -52,6 +57,10 @@ TestFunction *IntegrationScenario::getFun() const
 
 void IntegrationScenario::setFun(TestFunction *const value)
 {
+    if (fun != NULL)
+    {
+        delete fun;
+    }
     fun = value;
 }
 
@@ -62,6 +71,10 @@ EstimationAlgorithm *IntegrationScenario::getAlg() const
 
 void IntegrationScenario::setAlg(EstimationAlgorithm *const value)
 {
+    if (alg != NULL)
+    {
+        delete alg;
+    }
     alg = value;
 }
 

@@ -37,6 +37,9 @@ void QIntAnalysis::setupDisplay()
     testFunctionPick->addItem("foo1");
     testFunctionPick->addItem("foo2");
     testFunctionPick->addItem("foo3");
+    testFunctionPick->addItem("foo4");
+    testFunctionPick->addItem("foo5");
+    testFunctionPick->addItem("foo6");
     testFunctionPick->setCurrentIndex(params->getFunctionIndex());
     QObject::connect(testFunctionPick, SIGNAL(activated(int)), this->params, SLOT(setFunctionIndex(int)));
 
@@ -58,7 +61,7 @@ void QIntAnalysis::setupDisplay()
     QComboBox *intRulePick = new QComboBox;
     intRulePick->addItem("bar1");
     intRulePick->addItem("bar2");
-    intRulePick->addItem("bar3");
+    //intRulePick->addItem("bar3");
     intRulePick->setCurrentIndex(params->getRuleIndex());
     QObject::connect(intRulePick, SIGNAL(activated(int)), this->params, SLOT(setRuleIndex(int)));
 
@@ -99,6 +102,33 @@ void QIntAnalysis::setupDisplay()
     window->show();
 }
 
+void QIntAnalysis::configure()
+{
+    NodeSequence *seq;
+    switch (params->getRuleIndex())
+    {
+    case 0:
+        seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
+        break;
+    case 1:
+        seq = new MCUniformSequence(params->getFunctionDim(), params->getSeqLength(), 1, instR);
+    default:
+        break;
+    }
+
+    TestFunction *fun;
+    fun = new GenzFunction(params->getFunctionIndex() + 1, params->getFunctionDim());
+
+    EstimationAlgorithm *alg;
+    alg = new MCConfint(0.95, 1.64);
+
+    routine.setSeq(seq);
+    routine.setFun(fun);
+    routine.setAlg(alg);
+    routine.RunAnalysis();
+    plot();
+}
+
 void QIntAnalysis::plot()
 {
     std::vector<double> estimate = routine.getAlg()->getEstimate().toStdVector();
@@ -133,33 +163,6 @@ void QIntAnalysis::plot()
     instR.parseEvalQ(cmd);
     filterFile();
     svg->load(svgfile);
-}
-
-void QIntAnalysis::configure()
-{
-    NodeSequence *seq;
-    switch (params->getRuleIndex())
-    {
-    case 0:
-        seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
-        break;
-    case 1:
-        seq = new MCUniformSequence(params->getFunctionDim(), params->getSeqLength(), 1, instR);
-    default:
-        break;
-    }
-
-    TestFunction *fun;
-    fun = new GenzFunction(params->getFunctionIndex() + 1, params->getFunctionDim());
-
-    EstimationAlgorithm *alg;
-    alg = new MCConfint(0.95, 1.64);
-
-    routine.setSeq(seq);
-    routine.setFun(fun);
-    routine.setAlg(alg);
-    routine.RunAnalysis();
-    plot();
 }
 
 void QIntAnalysis::filterFile()

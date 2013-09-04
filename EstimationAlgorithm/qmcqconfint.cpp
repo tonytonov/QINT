@@ -14,4 +14,10 @@ QMCQConfint *QMCQConfint::clone() const
 void QMCQConfint::BuildBorder(QVector<double> fvals)
 {
     //TODO : qconfint core
+    border.clear();
+    int k = 0;
+    foreach (double v, fvals)
+    {
+        border.insert(k, 0);
+    }
 }
