@@ -108,10 +108,28 @@ void QIntAnalysis::plot()
     instR["exact"] = routine.getExact();
     instR["borderIndices"] = borderIndices;
     instR["borderValues"] = borderValues;
-    std::string cmd0 = "require(ggplot2);";
-    std::string cmd1 = "image <- qplot(estimate - exact);";
-    std::string cmd2 = "ggsave(file=tfile, plot=image, device=svg, width=10, height=8)";
-    std::string cmd = cmd0 + cmd1 + cmd2;
+    std::string cmd0 = "require(ggplot2);require(reshape2);"
+    "image.df <- data.frame(error = abs(estimate - exact), border = NA);"
+    "image.df$border[borderIndices] <- borderValues;"
+    "image.df$number <- as.numeric(rownames(image.df));"
+    "image.melt.df <- melt(image.df, id.vars='number');"
+    "image <- ggplot(image.melt.df, aes(x=number, y=value, colour=variable, group=variable)) + "
+    "geom_path(size=1.2) +"
+    "labs(title=paste('QINT ', sep=''),"
+    "    y='', x='', colour='', size='') + "
+    "scale_colour_brewer(palette='Set1') + "
+    "theme("
+    "   legend.text = element_text(size = 16, face = 'bold'),"
+    "   legend.title = element_text(size = 16, face = 'bold'),"
+    "   plot.title = element_text(size = 16, face = 'bold', vjust = 1.2),"
+    "   axis.title.x = element_text(size = 16, face = 'bold', vjust = -0.2),"
+    "   axis.title.y = element_text(size = 16, face = 'bold', vjust = 0.2),"
+    "   axis.text.x = element_text(size = 14, colour = 'black'),"
+    "   axis.text.y = element_text(size = 14, colour = 'black')"
+    "   ) + "
+    "expand_limits(y=0);";
+    std::string cmd1 = "ggsave(file=tfile, plot=image, device=svg, width=10, height=8);";
+    std::string cmd = cmd0 + cmd1;
     instR.parseEvalQ(cmd);
     filterFile();
     svg->load(svgfile);
