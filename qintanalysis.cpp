@@ -3,6 +3,7 @@
 #include "NodeSequence/mcuniformsequence.h"
 #include "TestFunction/genzfunction.h"
 #include "EstimationAlgorithm/mcconfint.h"
+#include "EstimationAlgorithm/qmcqconfint.h"
 #include "intguiparams.h"
 #include <QtGui>
 
@@ -105,22 +106,22 @@ void QIntAnalysis::setupDisplay()
 void QIntAnalysis::configure()
 {
     NodeSequence *seq;
+    EstimationAlgorithm *alg;
     switch (params->getRuleIndex())
     {
     case 0:
         seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
+        alg = new QMCQConfint(seq);
         break;
     case 1:
         seq = new MCUniformSequence(params->getFunctionDim(), params->getSeqLength(), 1, instR);
+        alg = new MCConfint(0.95, 1.64);
     default:
         break;
     }
 
     TestFunction *fun;
     fun = new GenzFunction(params->getFunctionIndex() + 1, params->getFunctionDim());
-
-    EstimationAlgorithm *alg;
-    alg = new MCConfint(0.95, 1.64);
 
     routine.setSeq(seq);
     routine.setFun(fun);
