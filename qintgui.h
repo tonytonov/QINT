@@ -29,6 +29,26 @@ public slots:
 private:
     IntGuiParams *params;           // params from GUI forms
     QIntAnalysis *qint;             // analysis object
+
+    QWidget *window;
+    QComboBox *testFunctionPick;
+    QValidator *dimValidator;
+    QLineEdit *dimEdit;
+    QVBoxLayout *topleft;
+    QVBoxLayout *topright;
+    QGroupBox *testFunctionBox;
+    QComboBox *intRulePick;
+    QValidator *lenValidator;
+    QLineEdit *lenEdit;
+    QValidator *sParamValidator;
+    QLineEdit *sParamEdit;
+    QPushButton *startButton;
+    QGroupBox *integrationRuleBox;
+    QHBoxLayout *upperlayout;
+    QHBoxLayout *lowerlayout;
+    QVBoxLayout *outer;
+    QHBoxLayout *skParamLayout;
+    QLabel *kParamText;
 };
 
 #endif // QINTGUI_H

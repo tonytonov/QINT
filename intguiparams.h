@@ -35,6 +35,9 @@ public slots:
     void setsParam(int);
     void setsParam(const QString);
 
+signals:
+    void kParamChanged(QString);
+    void sParamChanged(QString);
 };
 
 #endif // INTGUIPARAMS_H

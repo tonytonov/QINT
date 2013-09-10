@@ -49,11 +49,14 @@ int IntGuiParams::getSeqLength() const
 void IntGuiParams::setFunctionDim(const QString str)
 {
     functionDim = str.toInt();
+    setsParam(1);
 }
 
 void IntGuiParams::setSeqLength(const QString str)
 {
     seqLength = str.toInt();
+    setsParam(1);
+    emit sParamChanged(QString::number(sParam));
 }
 
 int IntGuiParams::getkParam() const
@@ -70,10 +73,12 @@ void IntGuiParams::setsParam(int value)
 {
     sParam = value;
     kParam = pow(2, floor(log2(seqLength)) - sParam);
+    emit kParamChanged(QString("k = %1").arg(kParam));
 }
 
 void IntGuiParams::setsParam(const QString str)
 {
     sParam = str.toInt();
     kParam = pow(2, floor(log2(seqLength)) - sParam);
+    emit kParamChanged(QString("k = %1").arg(kParam));
 }
