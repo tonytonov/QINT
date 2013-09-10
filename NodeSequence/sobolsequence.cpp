@@ -24,13 +24,14 @@ SobolSequence *SobolSequence::clone() const
 
 void SobolSequence::Generate()
 {
-    for (int i=0; i<len; i++)
+    for (int i = 0; i < len; i++)
     {
         QVector<double> svec;
         seq.push_back(svec);
-        for (int j=0; j<dim; j++)
+        for (int j = 0; j < dim; j++)
         {
-            double sval = sobol::sample(i,j);
+            // dropping the first zero vector point
+            double sval = sobol::sample(i + 1,j);
             seq[i].push_back(sval);
         }
     }

@@ -4,11 +4,13 @@ TEMPLATE = 		app
 SOURCES = qintanalysis.cpp \
   integrationscenario.cpp \
   main.cpp \
-    intguiparams.cpp
+    intguiparams.cpp \
+    qintgui.cpp
 	
 HEADERS = qintanalysis.h \
   integrationscenario.h \
-    intguiparams.h
+    intguiparams.h \
+    qintgui.h
 
 include(NodeSequence/nodesequence.pri)
 include(TestFunction/testfunction.pri)
