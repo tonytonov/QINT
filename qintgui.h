@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QProgressBar>
 #include <intguiparams.h>
 #include <qintanalysis.h>
 
@@ -45,10 +46,14 @@ private:
     QPushButton *startButton;
     QGroupBox *integrationRuleBox;
     QHBoxLayout *upperlayout;
-    QHBoxLayout *lowerlayout;
+    QVBoxLayout *lowerlayout;
     QVBoxLayout *outer;
     QHBoxLayout *skParamLayout;
     QLabel *kParamText;
+    QProgressBar *analysisPB;
+
+signals:
+    void computationOver();
 };
 
 #endif // QINTGUI_H

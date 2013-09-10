@@ -96,14 +96,19 @@ void QIntGUI::setupDisplay()
     upperlayout->addWidget(testFunctionBox);
     upperlayout->addWidget(integrationRuleBox);
 
-    lowerlayout = new QHBoxLayout;
+    analysisPB = new QProgressBar;
+    analysisPB->hide();
+
+    lowerlayout = new QVBoxLayout;
     qint->configureSvgWidget(720, 568);
     lowerlayout->addWidget(qint->getSvgWidget());
+    lowerlayout->addWidget(analysisPB);
 
     outer = new QVBoxLayout;
     outer->addLayout(upperlayout);
     outer->addWidget(startButton);
     outer->addLayout(lowerlayout);
+    outer->addWidget(analysisPB);
 
     window->setLayout(outer);
     window->show();
@@ -111,5 +116,9 @@ void QIntGUI::setupDisplay()
 
 void QIntGUI::configureQint()
 {
+    analysisPB->setMinimum(0);
+    analysisPB->setMaximum(0);
+    analysisPB->show();
     qint->configure(params);
+    analysisPB->hide();
 }
