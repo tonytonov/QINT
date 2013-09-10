@@ -33,7 +33,7 @@ void IntegrationScenario::RunAnalysis()
 
     // passing these values to estimation algorithm
     alg->BuildEstimate(fvals);
-    alg->BuildBorder(fvals);
+    alg->AddBorder(fvals);
 }
 
 NodeSequence *IntegrationScenario::getSeq() const

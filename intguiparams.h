@@ -14,20 +14,26 @@ public:
     int getFunctionDim() const;
     int getRuleIndex() const;
     int getSeqLength() const;
+    int getkParam() const;
+    int getsParam() const;
 
 private:
     int functionIndex;
     int functionDim;
     int ruleIndex;
     int seqLength;
+    int kParam;
+    int sParam;
 
 public slots:
     void setFunctionIndex(int);
     void setFunctionDim(int);
+    void setFunctionDim(QString const);
     void setRuleIndex(int);
     void setSeqLength(int);
-    void setFunctionDim(QString const);
     void setSeqLength(QString const);
+    void setsParam(int);
+    void setsParam(const QString);
 
 };
 

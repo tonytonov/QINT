@@ -1,16 +1,15 @@
 #include "qmcqconfint.h"
 #include <cmath>
 
-QMCQConfint::QMCQConfint(const NodeSequence *ns)
+QMCQConfint::QMCQConfint(const NodeSequence *ns, int k, int s) :
+    kParam(k), sParam(s)
 {
-    //temporary fixing params
-    sParam = log2(ns->getLen());
-    kParam = 1;
+    multiplier = 2.58;
     MapSequence(ns);
 }
 
 QMCQConfint::QMCQConfint(const QMCQConfint &q) :
-    MeanEstimation(q)
+    MeanEstimation(q), kParam(q.kParam), sParam(q.sParam), multiplier(q.multiplier)
 {
 
 }
@@ -20,9 +19,8 @@ QMCQConfint *QMCQConfint::clone() const
     return new QMCQConfint(*this);
 }
 
-void QMCQConfint::BuildBorder(QVector<double> fvals)
+void QMCQConfint::AddBorder(QVector<double> fvals)
 {
-    border.clear();
     int NSets = pow(2, sParam);
     QVector<double> alphas;
     alphas.reserve(NSets);
@@ -51,7 +49,14 @@ void QMCQConfint::BuildBorder(QVector<double> fvals)
         }
     }
     // no border prior to N
-    border.insert(N, 1.0 / N * (meanSqN - meanN * meanN - ssAlpha));
+    double varEstimMC = 1.0 / N * (meanSqN - meanN * meanN);
+    double varEstimQMC = varEstimMC - 1.0 / N * ssAlpha;
+    QMap<int, double> qmclim;
+    for (int i = N; i < fvals.count(); i++)
+    {
+        qmclim.insert(i, multiplier * sqrt(varEstimQMC) / sqrt(N));
+    }
+    border.push_back(qmclim);
 }
 
 void QMCQConfint::MapSequence(const NodeSequence *ns, int method)
@@ -65,7 +70,7 @@ void QMCQConfint::MapSequence(const NodeSequence *ns, int method)
     case 0:
     {
         foreach (QVector<double> v, seq) {
-            int index = (int) floor(v[0] * pow(2, sParam));
+            int index = floor(v[0] * pow(2, sParam));
             map.push_back(index);
         }
         break;

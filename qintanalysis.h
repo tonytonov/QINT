@@ -29,7 +29,7 @@ private slots:
     void configure(void);
 
 private:
-    RInside &instR;              // reference to R instance passed to constructor
+    RInside &instR;               // reference to R instance passed to constructor
     QSvgWidget *svg;              // SVG device
     QString tempfile;             // temporary file for initial R plot
     QString svgfile;              // temporary file for resulting R plot

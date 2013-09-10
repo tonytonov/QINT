@@ -21,12 +21,12 @@ void EstimationAlgorithm::setEstimate(const QVector<double> &value)
     estimate = value;
 }
 
-QMap<int, double> EstimationAlgorithm::getBorder() const
+QList<QMap<int, double> > EstimationAlgorithm::getBorder() const
 {
     return border;
 }
 
-void EstimationAlgorithm::setBorder(const QMap<int, double> &value)
+void EstimationAlgorithm::setBorder(const QList<QMap<int, double> > &value)
 {
     border = value;
 }

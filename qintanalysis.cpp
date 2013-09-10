@@ -5,6 +5,7 @@
 #include "EstimationAlgorithm/mcconfint.h"
 #include "EstimationAlgorithm/qmcqconfint.h"
 #include "intguiparams.h"
+#include <cmath>
 #include <QtGui>
 
 QIntAnalysis::QIntAnalysis(RInside &R) : instR(R)
@@ -17,6 +18,7 @@ QIntAnalysis::QIntAnalysis(RInside &R) : instR(R)
     params->setFunctionDim(5);
     params->setRuleIndex(0);
     params->setSeqLength(100);
+    params->setsParam(1);
 
     setupDisplay();
 }
@@ -44,7 +46,7 @@ void QIntAnalysis::setupDisplay()
     testFunctionPick->setCurrentIndex(params->getFunctionIndex());
     QObject::connect(testFunctionPick, SIGNAL(activated(int)), this->params, SLOT(setFunctionIndex(int)));
 
-    QValidator *dimValidator = new QIntValidator(1, 10);
+    QValidator *dimValidator = new QIntValidator(1, 100);
     QLineEdit *dimEdit = new QLineEdit;
     dimEdit->setValidator(dimValidator);
     dimEdit->setText(QString::number(params->getFunctionDim()));
@@ -66,11 +68,17 @@ void QIntAnalysis::setupDisplay()
     intRulePick->setCurrentIndex(params->getRuleIndex());
     QObject::connect(intRulePick, SIGNAL(activated(int)), this->params, SLOT(setRuleIndex(int)));
 
-    QValidator *lenValidator = new QIntValidator(1, 100);
+    QValidator *lenValidator = new QIntValidator(1, 1000);
     QLineEdit *lenEdit = new QLineEdit;
     lenEdit->setValidator(lenValidator);
     lenEdit->setText(QString::number(params->getSeqLength()));
     QObject::connect(lenEdit, SIGNAL(textEdited(QString)), this->params, SLOT(setSeqLength(QString)));
+
+    QValidator *sParamValidator = new QIntValidator(1, floor(log2(params->getSeqLength())));
+    QLineEdit *sParamEdit = new QLineEdit;
+    sParamEdit->setValidator(sParamValidator);
+    sParamEdit->setText(QString::number(params->getsParam()));
+    QObject::connect(sParamEdit, SIGNAL(textEdited(QString)), this->params, SLOT(setsParam(QString)));
 
     QPushButton *startButton = new QPushButton("Launch");
     QObject::connect(startButton, SIGNAL(released()), this, SLOT(configure()));
@@ -78,6 +86,7 @@ void QIntAnalysis::setupDisplay()
     QVBoxLayout *topright = new QVBoxLayout;
     topright->addWidget(intRulePick);
     topright->addWidget(lenEdit);
+    topright->addWidget(sParamEdit);
     topright->addWidget(startButton);
     QGroupBox *integrationRuleBox = new QGroupBox("Integration rule and parameters");
     integrationRuleBox->setMinimumSize(360,140);
@@ -111,7 +120,7 @@ void QIntAnalysis::configure()
     {
     case 0:
         seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
-        alg = new QMCQConfint(seq);
+        alg = new QMCQConfint(seq, params->getkParam(), params->getsParam());
         break;
     case 1:
         seq = new MCUniformSequence(params->getFunctionDim(), params->getSeqLength(), 1, instR);
@@ -133,8 +142,8 @@ void QIntAnalysis::configure()
 void QIntAnalysis::plot()
 {
     std::vector<double> estimate = routine.getAlg()->getEstimate().toStdVector();
-    std::vector<int> borderIndices = routine.getAlg()->getBorder().keys().toVector().toStdVector();
-    std::vector<double> borderValues = routine.getAlg()->getBorder().values().toVector().toStdVector();
+    std::vector<int> borderIndices = routine.getAlg()->getBorder()[0].keys().toVector().toStdVector();
+    std::vector<double> borderValues = routine.getAlg()->getBorder()[0].values().toVector().toStdVector();
     instR["estimate"] = estimate;
     instR["exact"] = routine.getExact();
     instR["borderIndices"] = borderIndices;
@@ -145,7 +154,7 @@ void QIntAnalysis::plot()
     "image.df$number <- as.numeric(rownames(image.df));"
     "image.melt.df <- melt(image.df, id.vars='number');"
     "image <- ggplot(image.melt.df, aes(x=number, y=value, colour=variable, group=variable)) + "
-    "geom_path(size=1.2) +"
+    "geom_path(size=1.2) + "
     "labs(title=paste('QINT ', sep=''),"
     "    y='', x='', colour='', size='') + "
     "scale_colour_brewer(palette='Set1') + "

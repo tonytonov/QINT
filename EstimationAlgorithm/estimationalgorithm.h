@@ -13,16 +13,16 @@ public:
 
 protected:
     QVector<double> estimate;
-    QMap<int, double> border;
+    QList<QMap<int, double> > border;
 
 public:
     virtual void BuildEstimate(QVector<double> fvals)=0;
     //TODO: call by const reference
-    virtual void BuildBorder(QVector<double> fvals)=0;
+    virtual void AddBorder(QVector<double> fvals)=0;
     QVector<double> getEstimate() const;
     void setEstimate(const QVector<double> &value);
-    QMap<int, double> getBorder() const;
-    void setBorder(const QMap<int, double> &value);
+    QList<QMap<int, double> > getBorder() const;
+    void setBorder(const QList<QMap<int, double> > &value);
 };
 
 #endif // ESTIMATIONALGORITHM_H

@@ -15,7 +15,7 @@ private:
     double multiplier;
 
 public:
-    virtual void BuildBorder(QVector<double> fvals);
+    virtual void AddBorder(QVector<double> fvals);
 };
 
 #endif // MCCONFINT_H
