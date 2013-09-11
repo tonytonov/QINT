@@ -26,6 +26,8 @@ public:
 
 public slots:
     void configureQint();
+    void showProgressBar();
+    void hideProgressBar();
 
 private:
     IntGuiParams *params;           // params from GUI forms
@@ -53,7 +55,8 @@ private:
     QProgressBar *analysisPB;
 
 signals:
-    void computationOver();
+    void computationStarted();
+    void computationFinished();
 };
 
 #endif // QINTGUI_H

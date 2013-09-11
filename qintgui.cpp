@@ -1,4 +1,5 @@
 #include "qintgui.h"
+#include <QCoreApplication>
 
 QIntGUI::QIntGUI(RInside &R)
 {
@@ -74,7 +75,6 @@ void QIntGUI::setupDisplay()
     kParamText->setText(QString("k = %1").arg(params->getkParam()));
     QObject::connect(this->params, SIGNAL(kParamChanged(QString)), this->kParamText, SLOT(setText(QString)));
 
-
     skParamLayout = new QHBoxLayout;
     skParamLayout->addWidget(sParamEdit);
     skParamLayout->addWidget(kParamText);
@@ -95,20 +95,29 @@ void QIntGUI::setupDisplay()
     upperlayout = new QHBoxLayout;
     upperlayout->addWidget(testFunctionBox);
     upperlayout->addWidget(integrationRuleBox);
+    upperlayout->setSizeConstraint(QLayout::SetFixedSize);
 
     analysisPB = new QProgressBar;
+    analysisPB->setMinimum(0);
+    analysisPB->setMaximum(0);
+    analysisPB->setMinimumSize(720, 5);
+    analysisPB->setMaximumSize(720, 5);
+    analysisPB->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     analysisPB->hide();
+    QObject::connect(this, SIGNAL(computationStarted()), this, SLOT(showProgressBar()));
+    QObject::connect(this, SIGNAL(computationFinished()), this, SLOT(hideProgressBar()));
 
     lowerlayout = new QVBoxLayout;
     qint->configureSvgWidget(720, 568);
     lowerlayout->addWidget(qint->getSvgWidget());
-    lowerlayout->addWidget(analysisPB);
+    lowerlayout->setSizeConstraint(QLayout::SetFixedSize);
 
     outer = new QVBoxLayout;
     outer->addLayout(upperlayout);
     outer->addWidget(startButton);
     outer->addLayout(lowerlayout);
     outer->addWidget(analysisPB);
+    outer->setSizeConstraint(QLayout::SetFixedSize);
 
     window->setLayout(outer);
     window->show();
@@ -116,9 +125,19 @@ void QIntGUI::setupDisplay()
 
 void QIntGUI::configureQint()
 {
-    analysisPB->setMinimum(0);
-    analysisPB->setMaximum(0);
-    analysisPB->show();
+    emit computationStarted();
     qint->configure(params);
+    emit computationFinished();
+}
+
+void QIntGUI::showProgressBar()
+{
+    analysisPB->show();
+    QCoreApplication::processEvents();
+}
+
+void QIntGUI::hideProgressBar()
+{
     analysisPB->hide();
+    QCoreApplication::processEvents();
 }
