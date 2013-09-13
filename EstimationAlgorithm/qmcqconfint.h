@@ -20,6 +20,7 @@ protected:
 
 public:
     virtual void AddBorder(QVector<double> fvals);
+    void AddBorderStep(int k, QVector<double> fvals);
     void MapSequence(const NodeSequence *ns, int method = 0);
 };
 

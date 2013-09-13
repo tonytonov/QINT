@@ -1,5 +1,6 @@
 #include "qmcqconfint.h"
 #include <cmath>
+#include <algorithm>
 
 QMCQConfint::QMCQConfint(const NodeSequence *ns, int k, int s) :
     kParam(k), sParam(s)
@@ -21,10 +22,18 @@ QMCQConfint *QMCQConfint::clone() const
 
 void QMCQConfint::AddBorder(QVector<double> fvals)
 {
+    for (int k = 1 ; k <= kParam; k++)
+    {
+        AddBorderStep(k, fvals);
+    }
+}
+
+void QMCQConfint::AddBorderStep(int k, QVector<double> fvals)
+{
     int NSets = pow(2, sParam);
     QVector<double> alphas;
     alphas.reserve(NSets);
-    int N = kParam * NSets;
+    int N = k * NSets;
     double meanN = 0;
     double meanSqN = 0;
     double ssAlpha = 0;
@@ -36,7 +45,7 @@ void QMCQConfint::AddBorder(QVector<double> fvals)
     // computing mean values for each group and total
     for (int i = 0; i < N; i++)
     {
-        alphas[map[i]] += 1.0 / N / kParam * fvals[i];
+        alphas[map[i]] += 1.0 / N / k * fvals[i];
         meanN += 1.0 / N * fvals[i];
         meanSqN += 1.0 / N * fvals[i] * fvals[i];
     }
@@ -50,9 +59,11 @@ void QMCQConfint::AddBorder(QVector<double> fvals)
     }
     // no border prior to N
     double varEstimMC = 1.0 / N * (meanSqN - meanN * meanN);
-    double varEstimQMC = varEstimMC - 1.0 / N * ssAlpha;
+    double varEstimQMC = std::max(varEstimMC - 1.0 / N * ssAlpha, 0.0);
     QMap<int, double> qmclim;
-    for (int i = N; i < fvals.count(); i++)
+    // border is actual until next k or end of range
+    int lastPt = std::min(fvals.count(), (k + 1) * NSets);
+    for (int i = N; i < lastPt; i++)
     {
         qmclim.insert(i, multiplier * sqrt(varEstimQMC) / sqrt(N));
     }
