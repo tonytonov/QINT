@@ -65,9 +65,17 @@ void QIntAnalysis::configure(IntGuiParams *params)
 
 void QIntAnalysis::plot()
 {
+    typedef QMap<int, double> QBOrderMap;
     std::vector<double> estimate = routine.getAlg()->getEstimate().toStdVector();
-    std::vector<int> borderIndices = routine.getAlg()->getBorder()[0].keys().toVector().toStdVector();
-    std::vector<double> borderValues = routine.getAlg()->getBorder()[0].values().toVector().toStdVector();
+    QList<QBOrderMap> border = routine.getAlg()->getBorder();
+    std::vector<int> borderIndices;
+    std::vector<double> borderValues;
+    foreach (const QBOrderMap& singleBorder, border) {
+        foreach (int borderKey, singleBorder.keys()) {
+            borderIndices.push_back(borderKey);
+            borderValues.push_back(singleBorder.value(borderKey));
+        }
+    }
     instR["estimate"] = estimate;
     instR["exact"] = routine.getExact();
     instR["borderIndices"] = borderIndices;
