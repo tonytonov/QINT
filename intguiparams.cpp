@@ -72,13 +72,15 @@ int IntGuiParams::getsParam() const
 void IntGuiParams::setsParam(int value)
 {
     sParam = value;
-    kParam = pow(2, floor(log2(seqLength)) - sParam);
+    //kParam = pow(2, floor(log2(seqLength)) - sParam);
+    kParam = std::floor((double) seqLength / pow(2, sParam));
     emit kParamChanged(QString("k = %1").arg(kParam));
 }
 
 void IntGuiParams::setsParam(const QString str)
 {
     sParam = str.toInt();
-    kParam = pow(2, floor(log2(seqLength)) - sParam);
+    //kParam = pow(2, floor(log2(seqLength)) - sParam);
+    kParam = std::floor((double) seqLength / pow(2, sParam));
     emit kParamChanged(QString("k = %1").arg(kParam));
 }

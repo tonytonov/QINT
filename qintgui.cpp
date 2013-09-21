@@ -58,7 +58,7 @@ void QIntGUI::setupDisplay()
     intRulePick->setCurrentIndex(params->getRuleIndex());
     QObject::connect(intRulePick, SIGNAL(activated(int)), this->params, SLOT(setRuleIndex(int)));
 
-    lenValidator = new QIntValidator(10, 1000);
+    lenValidator = new QIntValidator(10, 100000);
     lenEdit = new QLineEdit;
     lenEdit->setValidator(lenValidator);
     lenEdit->setText(QString::number(params->getSeqLength()));
@@ -81,6 +81,9 @@ void QIntGUI::setupDisplay()
 
     startButton = new QPushButton("Launch");
     QObject::connect(startButton, SIGNAL(released()), this, SLOT(configureQint()));
+
+    exportButton = new QPushButton("Export data");
+    QObject::connect(exportButton, SIGNAL(released()), this->qint, SLOT(exportData()));
 
     topright = new QVBoxLayout;
     topright->addWidget(intRulePick);
@@ -115,6 +118,7 @@ void QIntGUI::setupDisplay()
     outer = new QVBoxLayout;
     outer->addLayout(upperlayout);
     outer->addWidget(startButton);
+    outer->addWidget(exportButton);
     outer->addLayout(lowerlayout);
     outer->addWidget(analysisPB);
     outer->setSizeConstraint(QLayout::SetFixedSize);

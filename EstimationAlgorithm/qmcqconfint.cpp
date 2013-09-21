@@ -59,10 +59,13 @@ void QMCQConfint::AddBorderStep(int k, QVector<double> fvals)
     }
     // no border prior to N
     double varEstimMC = 1.0 / N * (meanSqN - meanN * meanN);
-    double varEstimQMC = std::max(varEstimMC - 1.0 / N * ssAlpha, 0.0);
+    double varEstimQMC = varEstimMC - 1.0 / N * ssAlpha;
+    // QMC estimate may be less than 0 due to rounding around zero
+    // in that case, ignore estimation as unreliable
+    if (varEstimQMC < 0.0) {return;}
     QMap<int, double> qmclim;
     // border is actual until next k or end of range
-    int lastPt = std::min(fvals.count(), (k + 1) * NSets);
+    int lastPt = std::min(fvals.count() + 1, (k + 1) * NSets);
     for (int i = N; i < lastPt; i++)
     {
         qmclim.insert(i, multiplier * sqrt(varEstimQMC) / sqrt(N));
@@ -80,6 +83,7 @@ void QMCQConfint::MapSequence(const NodeSequence *ns, int method)
     {
     case 0:
     {
+        // only the first coordinate is used to define subsets
         foreach (QVector<double> v, seq) {
             int index = floor(v[0] * pow(2, sParam));
             map.push_back(index);

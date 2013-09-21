@@ -20,10 +20,12 @@ public:
 private:
     void setupDisplay();
     void filterFile();
+    void loadDataIntoR();
     void plot(void);
 
 public slots:
     void configure(IntGuiParams *params);
+    void exportData();
 
 private:
     RInside &instR;                 // reference to R instance passed to constructor

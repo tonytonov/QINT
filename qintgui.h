@@ -46,6 +46,7 @@ private:
     QValidator *sParamValidator;
     QLineEdit *sParamEdit;
     QPushButton *startButton;
+    QPushButton *exportButton;
     QGroupBox *integrationRuleBox;
     QHBoxLayout *upperlayout;
     QVBoxLayout *lowerlayout;
