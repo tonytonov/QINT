@@ -64,12 +64,13 @@ void QIntGUI::setupDisplay()
     lenEdit->setText(QString::number(params->getSeqLength()));
     QObject::connect(lenEdit, SIGNAL(textEdited(QString)), this->params, SLOT(setSeqLength(QString)));
 
-    sParamValidator = new QIntValidator(1, floor(log2(params->getSeqLength())));
+    sParamValidator = new QIntValidator(0, floor(log2(params->getSeqLength())));
     sParamEdit = new QLineEdit;
     sParamEdit->setValidator(sParamValidator);
     sParamEdit->setText(QString::number(params->getsParam()));
     QObject::connect(sParamEdit, SIGNAL(textEdited(QString)), this->params, SLOT(setsParam(QString)));
     QObject::connect(this->params, SIGNAL(sParamChanged(QString)), this->sParamEdit, SLOT(setText(QString)));
+    QObject::connect(this->params, SIGNAL(seqLenChanged(int)), this, SLOT(sValidatorAdjust(int)));
 
     kParamText = new QLabel;
     kParamText->setText(QString("k = %1").arg(params->getkParam()));
@@ -144,4 +145,10 @@ void QIntGUI::hideProgressBar()
 {
     analysisPB->hide();
     QCoreApplication::processEvents();
+}
+
+void QIntGUI::sValidatorAdjust(int value)
+{
+    sParamValidator->setTop(floor(log2(value)));
+    sParamEdit->setValidator(sParamValidator);
 }

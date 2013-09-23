@@ -38,6 +38,7 @@ public slots:
 signals:
     void kParamChanged(QString);
     void sParamChanged(QString);
+    void seqLenChanged(int);
 };
 
 #endif // INTGUIPARAMS_H

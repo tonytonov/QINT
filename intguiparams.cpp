@@ -39,6 +39,7 @@ int IntGuiParams::getRuleIndex() const
 void IntGuiParams::setSeqLength(int value)
 {
     seqLength = value;
+    emit seqLenChanged(value);
 }
 
 int IntGuiParams::getSeqLength() const
@@ -57,6 +58,7 @@ void IntGuiParams::setSeqLength(const QString str)
     seqLength = str.toInt();
     setsParam(1);
     emit sParamChanged(QString::number(sParam));
+    emit seqLenChanged(seqLength);
 }
 
 int IntGuiParams::getkParam() const

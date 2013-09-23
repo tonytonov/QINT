@@ -28,6 +28,7 @@ public slots:
     void configureQint();
     void showProgressBar();
     void hideProgressBar();
+    void sValidatorAdjust(int value);
 
 private:
     IntGuiParams *params;           // params from GUI forms
@@ -35,15 +36,15 @@ private:
 
     QWidget *window;
     QComboBox *testFunctionPick;
-    QValidator *dimValidator;
+    QIntValidator *dimValidator;
     QLineEdit *dimEdit;
     QVBoxLayout *topleft;
     QVBoxLayout *topright;
     QGroupBox *testFunctionBox;
     QComboBox *intRulePick;
-    QValidator *lenValidator;
+    QIntValidator *lenValidator;
     QLineEdit *lenEdit;
-    QValidator *sParamValidator;
+    QIntValidator *sParamValidator;
     QLineEdit *sParamEdit;
     QPushButton *startButton;
     QPushButton *exportButton;
