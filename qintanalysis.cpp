@@ -9,6 +9,7 @@
 #include <QSvgWidget>
 #include <QTemporaryFile>
 #include <QTextStream>
+#include <QDebug>
 
 QIntAnalysis::QIntAnalysis(RInside &R) : instR(R)
 {
@@ -56,10 +57,14 @@ void QIntAnalysis::configure(IntGuiParams *params)
     TestFunction *fun;
     fun = new GenzFunction(params->getFunctionIndex() + 1, params->getFunctionDim());
 
+    qDebug() << "Generating sequence...";
     routine.setSeq(seq);
+    qDebug() << "Preparing test function and estimation algorithm...";
     routine.setFun(fun);
     routine.setAlg(alg);
+    qDebug() << "Running analysis...";
     routine.RunAnalysis();
+    qDebug() << "Plotting results...";
     plot();
 }
 
