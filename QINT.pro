@@ -45,5 +45,8 @@ RINSIDELIBS = 		$$system($$R_HOME/bin/Rscript -e \"RInside:::LdFlags\(\)\")
 QMAKE_CXXFLAGS +=	$$RCPPWARNING $$RCPPFLAGS $$RCPPINCL $$RINSIDEINCL
 QMAKE_LIBS +=           $$RLDFLAGS $$RBLAS $$RLAPACK $$RINSIDELIBS $$RCPPLIBS
 
+## c++0x support
+QMAKE_CXXFLAGS +=       -std=c++0x
+
 ## addition clean targets
 QMAKE_CLEAN +=		qintanalysis Makefile
