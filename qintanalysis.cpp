@@ -74,7 +74,7 @@ void QIntAnalysis::exportData()
     std::string cmd = "dir.create('~/QINT', showWarnings = FALSE); "
             "filename <- gsub(' ', '_', Sys.time()); "
             "filename <- gsub(':', '', filename); "
-            "write.csv(image.df, file = paste('~/QINT/', filename, '.csv', sep = ''));";
+            "write.csv(total.df, file = paste('~/QINT/', filename, '.csv', sep = ''));";
     instR.parseEvalQ(cmd);
 }
 
@@ -131,6 +131,7 @@ void QIntAnalysis::filterFile()
 void QIntAnalysis::loadDataIntoR()
 {
     typedef QMap<int, double> QBorderMap;
+    std::vector<double> fvals = routine.getFvals().toStdVector();
     std::vector<double> estimate = routine.getAlg()->getEstimate().toStdVector();
     QList<QBorderMap> border = routine.getAlg()->getBorder();
     std::vector<int> borderIndices;
@@ -145,9 +146,13 @@ void QIntAnalysis::loadDataIntoR()
     instR["exact"] = routine.getExact();
     instR["borderIndices"] = borderIndices;
     instR["borderValues"] = borderValues;
+    instR["fvals"] = fvals;
 
     std::string cmd = "image.df <- data.frame(error = abs(estimate - exact), border = NA);"
             "image.df$border[borderIndices] <- borderValues;"
-            "image.df$number <- as.numeric(rownames(image.df));";
+            "image.df$number <- as.numeric(rownames(image.df));"
+            "total.df <- image.df;"
+            "total.df$fvals <- fvals;"
+            "total.df$exact <- exact";
     instR.parseEvalQ(cmd);
 }

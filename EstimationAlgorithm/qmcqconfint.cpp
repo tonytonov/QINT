@@ -5,7 +5,7 @@
 QMCQConfint::QMCQConfint(const NodeSequence *ns, int k, int s) :
     kParam(k), sParam(s)
 {
-    multiplier = 2.58;
+    multiplier = 1.64;
     MapSequence(ns);
 }
 
@@ -22,6 +22,7 @@ QMCQConfint *QMCQConfint::clone() const
 
 void QMCQConfint::AddBorder(QVector<double> fvals)
 {
+    border.clear();
     for (int k = 1 ; k <= kParam; k++)
     {
         AddBorderStep(k, fvals);
@@ -68,7 +69,7 @@ void QMCQConfint::AddBorderStep(int k, QVector<double> fvals)
     int lastPt = std::min(fvals.count() + 1, (k + 1) * NSets);
     for (int i = N; i < lastPt; i++)
     {
-        qmclim.insert(i, multiplier * sqrt(varEstimQMC) / sqrt(N));
+        qmclim.insert(i, multiplier * sqrt(varEstimQMC));
     }
     border.push_back(qmclim);
 }

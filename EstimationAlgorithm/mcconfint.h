@@ -16,6 +16,7 @@ private:
 
 public:
     virtual void AddBorder(QVector<double> fvals);
+    void AddBorderStep(int N, QVector<double> fvals);
 };
 
 #endif // MCCONFINT_H

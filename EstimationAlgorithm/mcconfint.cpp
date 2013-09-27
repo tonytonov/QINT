@@ -20,22 +20,27 @@ MCConfint *MCConfint::clone() const
 
 void MCConfint::AddBorder(QVector<double> fvals)
 {
-    // classical MC confidence interval
-    // cumulative stddev is computed safely (reference to Knuth)
     border.clear();
-    QMap<int, double> mclim;
-    double stddev;
-    double sqdiff = 0;
-    int k = 0;
-    foreach (double v, fvals)
+    for (int k = 1 ; k <= fvals.count(); k++)
     {
-        ++k;
-        if (k > 1)
-        {
-            sqdiff = sqdiff + (v - estimate[k-2]) * (v - estimate[k-1]);
-            stddev = sqrt(sqdiff / (k - 1));
-            mclim.insert(k, multiplier * stddev / sqrt(k));
-        }
+        AddBorderStep(k, fvals);
     }
+}
+
+void MCConfint::AddBorderStep(int N, QVector<double> fvals)
+{
+    // classical MC confidence interval
+    // cumulative stddev is computed in the same way as for QMC
+    QMap<int, double> mclim;
+    double meanN = 0;
+    double meanSqN = 0;
+    for (int i = 0; i < N; i++)
+    {
+        meanN += 1.0 / N * fvals[i];
+        meanSqN += 1.0 / N * fvals[i] * fvals[i];
+    }
+    double varEstimMC = 1.0 / N * (meanSqN - meanN * meanN);
+    if (varEstimMC < 0.0) {return;}
+    mclim.insert(N, multiplier * sqrt(varEstimMC));
     border.push_back(mclim);
 }
