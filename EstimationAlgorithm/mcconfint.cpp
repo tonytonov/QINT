@@ -36,10 +36,10 @@ void MCConfint::AddBorderStep(int N, QVector<double> fvals)
     double meanSqN = 0;
     for (int i = 0; i < N; i++)
     {
-        meanN += 1.0 / N * fvals[i];
-        meanSqN += 1.0 / N * fvals[i] * fvals[i];
+        meanN += fvals[i] / N;
+        meanSqN += fvals[i] * fvals[i] / N;
     }
-    double varEstimMC = 1.0 / N * (meanSqN - meanN * meanN);
+    double varEstimMC = (meanSqN - meanN * meanN) / N;
     if (varEstimMC < 0.0) {return;}
     mclim.insert(N, multiplier * sqrt(varEstimMC));
     border.push_back(mclim);

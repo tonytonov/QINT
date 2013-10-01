@@ -5,8 +5,8 @@
 QMCQConfint::QMCQConfint(const NodeSequence *ns, int k, int s) :
     kParam(k), sParam(s)
 {
-    multiplier = 1.64;
-    MapSequence(ns);
+    multiplier = 3;
+    MapSequence(ns, 1);
 }
 
 QMCQConfint::QMCQConfint(const QMCQConfint &q) :
@@ -46,21 +46,21 @@ void QMCQConfint::AddBorderStep(int k, QVector<double> fvals)
     // computing mean values for each group and total
     for (int i = 0; i < N; i++)
     {
-        alphas[map[i]] += 1.0 / N / k * fvals[i];
-        meanN += 1.0 / N * fvals[i];
-        meanSqN += 1.0 / N * fvals[i] * fvals[i];
+        alphas[map[i]] += fvals[i] / N;
+        meanN += fvals[i] / N;
+        meanSqN += fvals[i] * fvals[i] / N;
     }
     // sum of squared pairwise differences
     for (int i = 0; i < NSets; i++)
     {
         for (int j = i; j < NSets; j++)
         {
-            ssAlpha += pow(alphas[i] - alphas[j], 2);
+            ssAlpha += (alphas[i] - alphas[j]) * (alphas[i] - alphas[j]);
         }
     }
     // no border prior to N
-    double varEstimMC = 1.0 / N * (meanSqN - meanN * meanN);
-    double varEstimQMC = varEstimMC - 1.0 / N * ssAlpha;
+    double varEstimMC = (meanSqN - meanN * meanN) / N;
+    double varEstimQMC = varEstimMC - ssAlpha / N;
     // QMC estimate may be less than 0 due to rounding around zero
     // in that case, ignore estimation as unreliable
     if (varEstimQMC < 0.0) {return;}
@@ -93,8 +93,33 @@ void QMCQConfint::MapSequence(const NodeSequence *ns, int method)
     }
     case 1:
     {
-        //TODO
+        // subsets are chosen to be as close to cubic shape as possible
+        foreach (QVector<double> v, seq) {
+            int index = CubicSubsetIndex(v, sParam);
+            map.push_back(index);
+        }
         break;
     }
     }
 }
+
+int QMCQConfint::CubicSubsetIndex(QVector<double> v, int s)
+{
+    int d = v.count();
+    QVector<int> partTimes;
+    partTimes.reserve(d);
+    QVector<int> binaryIndex;
+    binaryIndex.reserve(d);
+    int index = 0;
+    auto dv = std::div(s, d);
+    int a = dv.quot;
+    int b = dv.rem;
+    for (int i = 0; i < d; i++)
+    {
+        (i < b) ? partTimes.push_back(a + 1) : partTimes.push_back(a);
+        binaryIndex.push_back(floor(v[i] * pow(2, partTimes[i])));
+        index += binaryIndex[i] * pow(2, s - 1 - i);
+    }
+    return index;
+}
+

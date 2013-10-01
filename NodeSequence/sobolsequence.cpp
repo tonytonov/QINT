@@ -30,8 +30,7 @@ void SobolSequence::Generate()
         seq.push_back(svec);
         for (int j = 0; j < dim; j++)
         {
-            // dropping the first zero vector point
-            double sval = sobol::sample(i + 1,j);
+            double sval = sobol::sample(i, j);
             seq[i].push_back(sval);
         }
     }

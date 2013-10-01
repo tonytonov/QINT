@@ -49,7 +49,7 @@ void QIntAnalysis::configure(IntGuiParams *params)
         break;
     case 1:
         seq = new MCUniformSequence(params->getFunctionDim(), params->getSeqLength(), 1, instR);
-        alg = new MCConfint(0.95, 1.64);
+        alg = new MCConfint(0.9986501, 3);
     default:
         break;
     }
@@ -153,6 +153,7 @@ void QIntAnalysis::loadDataIntoR()
             "image.df$number <- as.numeric(rownames(image.df));"
             "total.df <- image.df;"
             "total.df$fvals <- fvals;"
+            "total.df$estimate <- estimate;"
             "total.df$exact <- exact";
     instR.parseEvalQ(cmd);
 }

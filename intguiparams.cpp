@@ -50,7 +50,6 @@ int IntGuiParams::getSeqLength() const
 void IntGuiParams::setFunctionDim(const QString str)
 {
     functionDim = str.toInt();
-    setsParam(1);
 }
 
 void IntGuiParams::setSeqLength(const QString str)
