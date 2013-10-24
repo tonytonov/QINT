@@ -146,6 +146,21 @@ double genz_function (int indx, int ndim, double z[], double alpha[], double bet
       value = exp ( total );
     }
   }
+ //
+ //  Killer example for QMC: piecewise linear.
+ //
+  else if ( indx == 7 )
+  {
+    value = 1.0;
+    total = 0.0;
+    for ( j = 0; j < ndim; j++ )
+    {
+        if (z[j] <= 0.5 - j / 2 / (j + 10)) {total = 0.0;}
+        else if (z[j] >= 0.5 + j / 2 / (j + 10)) {total = 1.0;}
+        else {total = z[j] * (10 + j) / j - 5.0 / j;}
+        value = value * total * 2;
+    }
+  }
   return value;
 }
 //****************************************************************************80
@@ -351,7 +366,13 @@ double genz_integral ( int indx, int ndim, double alpha[], double beta[] )
       value = value * ( exp ( alpha[j] * beta[j] ) - 1.0 ) / alpha[j];
     }
   }
-
+ //
+ //  Killer example for QMC: piecewise linear.
+ //
+   else if ( indx == 7 )
+   {
+     value = 1.0;
+   }
   return value;
 }
 //****************************************************************************80

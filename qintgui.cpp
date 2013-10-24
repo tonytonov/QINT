@@ -27,12 +27,13 @@ void QIntGUI::setupDisplay()
     window->setWindowTitle("QINT: numerical integration with error control");
 
     testFunctionPick = new QComboBox;
-    testFunctionPick->addItem("foo1");
-    testFunctionPick->addItem("foo2");
-    testFunctionPick->addItem("foo3");
-    testFunctionPick->addItem("foo4");
-    testFunctionPick->addItem("foo5");
-    testFunctionPick->addItem("foo6");
+    testFunctionPick->addItem("Genz: Oscillatory");
+    testFunctionPick->addItem("Genz: Product Peak");
+    testFunctionPick->addItem("Genz: Corner Peak");
+    testFunctionPick->addItem("Genz: Gaussian");
+    testFunctionPick->addItem("Genz: C0 function");
+    testFunctionPick->addItem("Genz: Discontinuous");
+    testFunctionPick->addItem("Piecewise linear");
     testFunctionPick->setCurrentIndex(params->getFunctionIndex());
     QObject::connect(testFunctionPick, SIGNAL(activated(int)), this->params, SLOT(setFunctionIndex(int)));
 
@@ -52,9 +53,8 @@ void QIntGUI::setupDisplay()
     testFunctionBox->setLayout(topleft);
 
     intRulePick = new QComboBox;
-    intRulePick->addItem("bar1");
-    intRulePick->addItem("bar2");
-    //intRulePick->addItem("bar3");
+    intRulePick->addItem("QMC Confint");
+    intRulePick->addItem("Naive Monte-Carlo");
     intRulePick->setCurrentIndex(params->getRuleIndex());
     QObject::connect(intRulePick, SIGNAL(activated(int)), this->params, SLOT(setRuleIndex(int)));
 
