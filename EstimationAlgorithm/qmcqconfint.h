@@ -23,6 +23,7 @@ public:
     void AddBorderStep(int k, QVector<double> fvals);
     void MapSequence(const NodeSequence *ns, int method = 0);
     int CubicSubsetIndex(QVector<double> v, int s);
+    int vectorSum(QVector<int> v);
 };
 
 #endif // QMCQCONFINT_H

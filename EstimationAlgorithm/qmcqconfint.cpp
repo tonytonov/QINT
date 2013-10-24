@@ -25,6 +25,8 @@ void QMCQConfint::AddBorder(QVector<double> fvals)
     border.clear();
     for (int k = 1 ; k <= kParam; k++)
     {
+        // ignore k=1, variance estimate is often 0
+        if (k == 1) continue;
         AddBorderStep(k, fvals);
     }
 }
@@ -118,8 +120,18 @@ int QMCQConfint::CubicSubsetIndex(QVector<double> v, int s)
     {
         (i < b) ? partTimes.push_back(a + 1) : partTimes.push_back(a);
         binaryIndex.push_back(floor(v[i] * pow(2, partTimes[i])));
-        index += binaryIndex[i] * pow(2, s - 1 - i);
+        index += binaryIndex[i] * pow(2, s - vectorSum(partTimes));
     }
     return index;
+}
+
+int QMCQConfint::vectorSum(QVector<int> v)
+{
+    double sum = 0;
+    for (int j = 0; j < v.count(); j++)
+    {
+        sum += v[j];
+    }
+    return sum;
 }
 
