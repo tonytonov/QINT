@@ -1,4 +1,4 @@
-#include "estimationalgorithm.h"
+#include "EstimationAlgorithm.h"
 
 EstimationAlgorithm::EstimationAlgorithm()
 {

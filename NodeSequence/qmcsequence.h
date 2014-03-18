@@ -1,7 +1,7 @@
 #ifndef QMCSEQUENCE_H
 #define QMCSEQUENCE_H
 
-#include <NodeSequence/nodesequence.h>
+#include <NodeSequence/NodeSequence.h>
 
 class QMCSequence : public NodeSequence
 {

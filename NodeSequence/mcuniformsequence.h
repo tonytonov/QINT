@@ -2,7 +2,7 @@
 #define MCUNIFORMSEQUENCE_H
 
 #include <RInside.h>
-#include <NodeSequence/mcsequence.h>
+#include <NodeSequence/MCSequence.h>
 
 class MCUniformSequence : public MCSequence
 {

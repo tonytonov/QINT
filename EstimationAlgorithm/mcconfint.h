@@ -1,7 +1,7 @@
 #ifndef MCCONFINT_H
 #define MCCONFINT_H
 
-#include <EstimationAlgorithm/meanestimation.h>
+#include <EstimationAlgorithm/MeanEstimation.h>
 
 class MCConfint : public MeanEstimation
 {

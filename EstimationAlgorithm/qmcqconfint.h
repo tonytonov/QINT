@@ -1,14 +1,14 @@
 #ifndef QMCQCONFINT_H
 #define QMCQCONFINT_H
 
-#include <EstimationAlgorithm/meanestimation.h>
-#include <NodeSequence/nodesequence.h>
+#include <EstimationAlgorithm/MeanEstimation.h>
+#include <NodeSequence/NodeSequence.h>
 #include <QVector>
 
 class QMCQConfint : public MeanEstimation
 {
 public:
-    QMCQConfint(const NodeSequence *ns, int k, int s);
+    QMCQConfint(const NodeSequence *ns, int k, int s, double mult);
     QMCQConfint(const QMCQConfint &q);
     QMCQConfint* clone() const;
 
@@ -23,7 +23,7 @@ public:
     void AddBorderStep(int k, QVector<double> fvals);
     void MapSequence(const NodeSequence *ns, int method = 0);
     int CubicSubsetIndex(QVector<double> v, int s);
-    int vectorSum(QVector<int> v);
+    int VectorSum(QVector<int> v);
 };
 
 #endif // QMCQCONFINT_H

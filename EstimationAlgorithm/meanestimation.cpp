@@ -1,4 +1,4 @@
-#include "meanestimation.h"
+#include "MeanEstimation.h"
 
 MeanEstimation::MeanEstimation()
 {

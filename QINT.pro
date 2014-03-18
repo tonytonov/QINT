@@ -1,20 +1,22 @@
 ## build an app based on the one headers and two source files
 TEMPLATE = 		app
 
-SOURCES = qintanalysis.cpp \
-  integrationscenario.cpp \
+SOURCES = \
   main.cpp \
-    intguiparams.cpp \
-    qintgui.cpp
+    QintGUI.cpp \
+    QintAnalysis.cpp \
+    IntGUIParams.cpp \
+    IntegrationScenario.cpp
 	
-HEADERS = qintanalysis.h \
-  integrationscenario.h \
-    intguiparams.h \
-    qintgui.h
+HEADERS = \
+    IntegrationScenario.h \
+    IntGUIParams.h \
+    QintAnalysis.h \
+    QintGUI.h
 
-include(NodeSequence/nodesequence.pri)
-include(TestFunction/testfunction.pri)
-include(EstimationAlgorithm/estimationalgorithm.pri)
+include(NodeSequence/NodeSequence.pri)
+include(TestFunction/TestFunction.pri)
+include(EstimationAlgorithm/EstimationAlgorithm.pri)
 
 ## beyond the default configuration, also use SVG graphics
 QT += 			svg
@@ -49,4 +51,6 @@ QMAKE_LIBS +=           $$RLDFLAGS $$RBLAS $$RLAPACK $$RINSIDELIBS $$RCPPLIBS
 QMAKE_CXXFLAGS +=       -std=c++0x
 
 ## addition clean targets
-QMAKE_CLEAN +=		qintanalysis Makefile
+QMAKE_CLEAN +=		QintAnalysis Makefile
+
+OTHER_FILES +=

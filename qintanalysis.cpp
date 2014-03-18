@@ -1,10 +1,11 @@
-#include "qintanalysis.h"
-#include "NodeSequence/sobolsequence.h"
-#include "NodeSequence/mcuniformsequence.h"
-#include "TestFunction/genzfunction.h"
-#include "EstimationAlgorithm/mcconfint.h"
-#include "EstimationAlgorithm/qmcqconfint.h"
-#include "intguiparams.h"
+#include "QintAnalysis.h"
+#include "NodeSequence/SobolSequence.h"
+#include "NodeSequence/MCUniformSequence.h"
+#include "NodeSequence/SobolSequenceRandomized.h"
+#include "TestFunction/GenzFunction.h"
+#include "EstimationAlgorithm/MCConfint.h"
+#include "EstimationAlgorithm/QMCQConfint.h"
+#include "IntGUIParams.h"
 #include <cmath>
 #include <QSvgWidget>
 #include <QTemporaryFile>
@@ -45,11 +46,15 @@ void QIntAnalysis::configure(IntGuiParams *params)
     {
     case 0:
         seq = new SobolSequence(params->getFunctionDim(), params->getSeqLength());
-        alg = new QMCQConfint(seq, params->getkParam(), params->getsParam());
+        alg = new QMCQConfint(seq, params->getkParam(), params->getsParam(), 3);
         break;
     case 1:
         seq = new MCUniformSequence(params->getFunctionDim(), params->getSeqLength(), 1, instR);
         alg = new MCConfint(0.9986501, 3);
+        break;
+    case 2:
+        seq = new SobolSequenceRandomized(params->getFunctionDim(), params->getSeqLength(), 1, instR);
+        alg = new QMCQConfint(seq, params->getkParam(), params->getsParam(), 3);
     default:
         break;
     }
@@ -66,16 +71,19 @@ void QIntAnalysis::configure(IntGuiParams *params)
     routine.RunAnalysis();
     qDebug() << "Plotting results...";
     plot();
+    qDebug() << "Done!";
 }
 
 void QIntAnalysis::exportData()
 {
     //TODO: disable button if no data
+    qDebug() << "Exporting data...";
     std::string cmd = "dir.create('~/QINT', showWarnings = FALSE); "
             "filename <- gsub(' ', '_', Sys.time()); "
             "filename <- gsub(':', '', filename); "
             "write.csv(total.df, file = paste('~/QINT/', filename, '.csv', sep = ''));";
     instR.parseEvalQ(cmd);
+    qDebug() << "Done!";
 }
 
 void QIntAnalysis::plot()

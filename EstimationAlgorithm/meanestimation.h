@@ -1,7 +1,7 @@
 #ifndef MEANESTIMATION_H
 #define MEANESTIMATION_H
 
-#include <EstimationAlgorithm/estimationalgorithm.h>
+#include <EstimationAlgorithm/EstimationAlgorithm.h>
 
 class MeanEstimation : public EstimationAlgorithm
 {

@@ -1,11 +1,10 @@
-#include "qmcqconfint.h"
+#include "QMCQConfint.h"
 #include <cmath>
 #include <algorithm>
 
-QMCQConfint::QMCQConfint(const NodeSequence *ns, int k, int s) :
-    kParam(k), sParam(s)
+QMCQConfint::QMCQConfint(const NodeSequence *ns, int k, int s, double mult) :
+    kParam(k), sParam(s), multiplier(mult)
 {
-    multiplier = 3;
     MapSequence(ns, 1);
 }
 
@@ -120,12 +119,12 @@ int QMCQConfint::CubicSubsetIndex(QVector<double> v, int s)
     {
         (i < b) ? partTimes.push_back(a + 1) : partTimes.push_back(a);
         binaryIndex.push_back(floor(v[i] * pow(2, partTimes[i])));
-        index += binaryIndex[i] * pow(2, s - vectorSum(partTimes));
+        index += binaryIndex[i] * pow(2, s - VectorSum(partTimes));
     }
     return index;
 }
 
-int QMCQConfint::vectorSum(QVector<int> v)
+int QMCQConfint::VectorSum(QVector<int> v)
 {
     double sum = 0;
     for (int j = 0; j < v.count(); j++)

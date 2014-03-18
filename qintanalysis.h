@@ -3,8 +3,8 @@
 
 #include <RInside.h>
 #include <QSvgWidget>
-#include <integrationscenario.h>
-#include <intguiparams.h>
+#include <IntegrationScenario.h>
+#include <IntGUIParams.h>
 
 class QIntAnalysis : public QObject
 {

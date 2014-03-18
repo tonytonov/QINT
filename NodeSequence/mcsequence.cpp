@@ -1,4 +1,4 @@
-#include "mcsequence.h"
+#include "MCSequence.h"
 
 MCSequence::MCSequence(int dim, int len, double seed) :
     NodeSequence(dim, len), seed(seed)

@@ -1,4 +1,4 @@
-#include "nodesequence.h"
+#include "NodeSequence.h"
 
 NodeSequence::NodeSequence(int dim, int len) : dim(dim), len(len)
 {

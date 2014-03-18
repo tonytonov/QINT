@@ -1,7 +1,7 @@
 #ifndef SOBOLSEQUENCE_H
 #define SOBOLSEQUENCE_H
 
-#include <NodeSequence/qmcsequence.h>
+#include <NodeSequence/QMCSequence.h>
 
 class SobolSequence : public QMCSequence
 {

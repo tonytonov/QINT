@@ -11,8 +11,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QProgressBar>
-#include <intguiparams.h>
-#include <qintanalysis.h>
+#include <IntGUIParams.h>
+#include <QintAnalysis.h>
 
 class QIntGUI : public QMainWindow
 {

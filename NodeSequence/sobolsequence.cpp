@@ -1,4 +1,4 @@
-#include "sobolsequence.h"
+#include "SobolSequence.h"
 #include "sobol.h"
 
 SobolSequence::SobolSequence(int dim, int len) : QMCSequence(dim, len)

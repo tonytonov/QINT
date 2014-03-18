@@ -1,7 +1,7 @@
 #ifndef MCSEQUENCE_H
 #define MCSEQUENCE_H
 
-#include <NodeSequence/nodesequence.h>
+#include <NodeSequence/NodeSequence.h>
 
 class MCSequence : public NodeSequence
 {

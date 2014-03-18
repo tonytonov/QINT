@@ -1,4 +1,4 @@
-#include "qintgui.h"
+#include "QintGUI.h"
 #include <QCoreApplication>
 
 QIntGUI::QIntGUI(RInside &R)
@@ -55,6 +55,7 @@ void QIntGUI::setupDisplay()
     intRulePick = new QComboBox;
     intRulePick->addItem("QMC Confint");
     intRulePick->addItem("Naive Monte-Carlo");
+    intRulePick->addItem("QMC Confint, randomized");
     intRulePick->setCurrentIndex(params->getRuleIndex());
     QObject::connect(intRulePick, SIGNAL(activated(int)), this->params, SLOT(setRuleIndex(int)));
 

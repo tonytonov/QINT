@@ -1,4 +1,4 @@
-#include "mcconfint.h"
+#include "MCConfint.h"
 #include <math.h>
 
 MCConfint::MCConfint(double level, double multiplier) :

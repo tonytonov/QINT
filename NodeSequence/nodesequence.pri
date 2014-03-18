@@ -1,13 +1,17 @@
-SOURCES += NodeSequence/nodesequence.cpp \
-    NodeSequence/qmcsequence.cpp \
-    NodeSequence/mcsequence.cpp \
-    NodeSequence/sobolsequence.cpp \
+SOURCES += \
+    NodeSequence/MCSequence.cpp \
+    NodeSequence/MCUniformSequence.cpp \
     NodeSequence/sobol.cpp \
-    NodeSequence/mcuniformsequence.cpp
+    NodeSequence/SobolSequence.cpp \
+    NodeSequence/SobolSequenceRandomized.cpp \
+    NodeSequence/QMCSequence.cpp \
+    NodeSequence/NodeSequence.cpp
 
-HEADERS += NodeSequence/nodesequence.h \
-    NodeSequence/qmcsequence.h \
-    NodeSequence/mcsequence.h \
-    NodeSequence/sobolsequence.h \
+HEADERS += \
+    NodeSequence/MCSequence.h \
+    NodeSequence/MCUniformSequence.h \
+    NodeSequence/NodeSequence.h \
+    NodeSequence/QMCSequence.h \
     NodeSequence/sobol.h \
-    NodeSequence/mcuniformsequence.h
+    NodeSequence/SobolSequence.h \
+    NodeSequence/SobolSequenceRandomized.h

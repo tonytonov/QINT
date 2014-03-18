@@ -2,7 +2,7 @@
 #define GENZFUNCTION_H
 
 #include <QString>
-#include <TestFunction/testfunction.h>
+#include <TestFunction/TestFunction.h>
 
 class GenzFunction : public TestFunction
 {
@@ -17,7 +17,8 @@ protected:
     QVector<double> beta;
 
 private:
-    void fillGenzParams();
+    void fillGenzParams(int index);
+    QVector<double> normalizeGenzParams(QVector<double> alpha, double norm_value);
 
 public:
     double virtual GetValue(QVector<double> x);

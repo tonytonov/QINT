@@ -1,7 +1,9 @@
-SOURCES += TestFunction/testfunction.cpp \
+SOURCES += \
     TestFunction/testpack.cpp \
-    TestFunction/genzfunction.cpp
+    TestFunction/GenzFunction.cpp \
+    TestFunction/TestFunction.cpp
 
-HEADERS += TestFunction/testfunction.h \
-    TestFunction/genzfunction.h \
-    TestFunction/testpack.h
+HEADERS += \
+    TestFunction/testpack.h \
+    TestFunction/TestFunction.h \
+    TestFunction/GenzFunction.h

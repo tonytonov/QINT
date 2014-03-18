@@ -1,4 +1,4 @@
-#include "qintgui.h"
+#include "QintGUI.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

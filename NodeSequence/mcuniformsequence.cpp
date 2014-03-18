@@ -1,4 +1,4 @@
-#include "mcuniformsequence.h"
+#include "MCUniformSequence.h"
 
 MCUniformSequence::MCUniformSequence(int dim, int len, double seed, RInside &R) :
     MCSequence(dim, len, seed), R(R)
@@ -25,11 +25,10 @@ MCUniformSequence *MCUniformSequence::clone() const
 void MCUniformSequence::Generate()
 {
     R["mcu.dim"] = dim;
-    R["mcu.len"] = len;
     R["mcu.seed"] = seed;
     R.parseEvalQ("set.seed(mcu.seed);");
 
-    for (int i=0; i<len; i++)
+    for (int i = 0; i < len; i++)
     {
         std::vector<double> vec;
         QVector<double> svec;

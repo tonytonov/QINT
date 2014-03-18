@@ -1,4 +1,4 @@
-#include "integrationscenario.h"
+#include "IntegrationScenario.h"
 
 IntegrationScenario::IntegrationScenario()
 {

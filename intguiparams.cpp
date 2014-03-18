@@ -1,4 +1,4 @@
-#include "intguiparams.h"
+#include "IntGUIParams.h"
 #include <cmath>
 
 IntGuiParams::IntGuiParams()

@@ -3,9 +3,9 @@
 
 #include <QVector>
 
-#include <NodeSequence/nodesequence.h>
-#include <TestFunction/testfunction.h>
-#include <EstimationAlgorithm/estimationalgorithm.h>
+#include <NodeSequence/NodeSequence.h>
+#include <TestFunction/TestFunction.h>
+#include <EstimationAlgorithm/EstimationAlgorithm.h>
 
 class IntegrationScenario
 {

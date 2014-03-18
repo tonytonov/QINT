@@ -1,4 +1,4 @@
-#include "testfunction.h"
+#include "TestFunction.h"
 
 TestFunction::TestFunction(int dim): dim(dim)
 {
